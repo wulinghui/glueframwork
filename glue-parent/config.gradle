@@ -1,0 +1,13 @@
+ext {
+    def dependVersion = [
+            support    : "3.2"
+    ]
+
+    dependencies = [
+		"jdtcore" : "org.eclipse.jdt:org.eclipse.jdt.core:3.18.0",
+    	"commons-io" : "commons-io:commons-io:2.6",
+    	"commons-collections" :	"commons-collections:commons-collections:${dependVersion.support}" ,
+	    "commons-lang3" :	"org.apache.commons:commons-lang3:3.0" ,
+	    "junit" : "junit:junit:4.12"
+    ]
+}

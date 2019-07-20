@@ -1,0 +1,45 @@
+apply from: "config.gradle"
+
+allprojects {
+	
+	apply plugin: 'eclipse'
+	apply plugin: 'maven'
+	apply plugin: 'java'
+	
+	group = 'com.glueframework'
+	version = '0.0.1-SNAPSHOT'
+	
+	sourceCompatibility = 1.8
+	targetCompatibility = 1.8
+	tasks.withType(JavaCompile) {
+		options.encoding = 'UTF-8'
+	}
+	
+	repositories {
+	    mavenLocal()
+	    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
+	    maven { url "http://repo.maven.apache.org/maven2" }
+	}
+	
+	dependencies {
+	    //compile group: 'commons-collections', name: 'commons-collections', version: '3.2'
+	    //compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.0'
+	    testCompile rootProject.ext.dependencies["junit"]
+	}
+	
+	test {
+	    systemProperties 'property': 'value'
+	}
+	
+	uploadArchives {
+	    repositories {
+	       flatDir {
+	           dirs 'repos'
+	       }
+	    }
+	}
+}
+
+subprojects {
+  
+}
