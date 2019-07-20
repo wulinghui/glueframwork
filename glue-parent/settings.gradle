@@ -2,6 +2,9 @@ rootProject.name = 'glue-parent'
 
 include 'glue-complier' 
 include 'glue-boilerplate'
+include 'glue-log'
+
 
 project(':glue-complier').projectDir = new File(settingsDir, '../glue-complier')
 project(':glue-boilerplate').projectDir = new File(settingsDir, '../glue-boilerplate')
+project(':glue-log').projectDir = new File(settingsDir, '../glue-log')

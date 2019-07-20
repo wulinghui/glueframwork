@@ -1,6 +1,7 @@
 ext {
     def dependVersion = [
-            support    : "3.2"
+            support    : "3.2" ,
+            slf4j : "1.7.10"
     ]
 
     dependencies = [
@@ -8,6 +9,8 @@ ext {
     	"commons-io" : "commons-io:commons-io:2.6",
     	"commons-collections" :	"commons-collections:commons-collections:${dependVersion.support}" ,
 	    "commons-lang3" :	"org.apache.commons:commons-lang3:3.0" ,
-	    "junit" : "junit:junit:4.12"
-    ]
+	    "junit" : "junit:junit:4.12",
+    	"slf4j" : "org.slf4j:slf4j-api:${dependVersion.slf4j}" , 
+    	"slf4j-jdk" : "org.slf4j:slf4j-jdk14:${dependVersion.slf4j}"
+   ]
 }

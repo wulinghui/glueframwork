@@ -1,0 +1,4 @@
+	dependencies { 
+	    compile rootProject.ext.dependencies["slf4j"]
+	    compile rootProject.ext.dependencies["slf4j-jdk"]
+	}

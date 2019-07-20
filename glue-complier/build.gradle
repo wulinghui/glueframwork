@@ -1,3 +1,3 @@
-	dependencies {
-	    compile rootProject.ext.dependencies["commons-io"]
-	}
+dependencies {
+    compile project(':glue-boilerplate')
+}
