@@ -5,7 +5,7 @@ import java.nio.file.WatchEvent.Kind;
 
 public abstract class JdtChangeMonitor extends FileChangeMonitor {
 	final IJdtConvert jdtConvert;
-	 String[] jar , target;
+	
 	 
 	public JdtChangeMonitor(String pathStr ,IJdtConvert jdtConvert ) {
 		super(pathStr);
@@ -24,12 +24,4 @@ public abstract class JdtChangeMonitor extends FileChangeMonitor {
 	
 	protected abstract void afterDo(String srcInner);
 
-	public void setJar(String[] jar) {
-		this.jar = jar;
-	}
-
-	public void setTarget(String[] target) {
-		this.target = target;
-	}
-	
 }
