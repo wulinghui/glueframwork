@@ -11,6 +11,7 @@ ext {
 	    "commons-lang3" :	"org.apache.commons:commons-lang3:3.0" ,
 	    "junit" : "junit:junit:4.12",
     	"slf4j" : "org.slf4j:slf4j-api:${dependVersion.slf4j}" , 
-    	"slf4j-jdk" : "org.slf4j:slf4j-jdk14:${dependVersion.slf4j}"
+    	"slf4j-jdk" : "org.slf4j:slf4j-jdk14:${dependVersion.slf4j}" , 
+        "commons-jci" : "org.apache.commons:commons-jci-eclipse:1.1"
    ]
 }

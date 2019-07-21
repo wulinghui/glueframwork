@@ -1,3 +1,4 @@
 dependencies {
     compile project(':glue-boilerplate')
+    compile rootProject.ext.dependencies["commons-jci"]
 }

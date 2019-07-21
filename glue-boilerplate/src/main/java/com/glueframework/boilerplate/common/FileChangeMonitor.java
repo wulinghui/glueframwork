@@ -1,4 +1,4 @@
-package com.glueframework.boilerplate;
+package com.glueframework.boilerplate.common;
 
 import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
 import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
@@ -16,11 +16,11 @@ import com.glueframework.log.ILogger;
 import com.glueframework.log.LogMSG;
 
 /**
- * 测试文件变更
+ * 文件变更
  * <p>
  * Created by yihui on 2017/4/28.
  */
-public class FileChangeMonitor {
+public abstract class FileChangeMonitor {
 	protected static ILogger logger = LogMSG.getLogger();
 	protected Path path;
 	
@@ -44,35 +44,33 @@ public class FileChangeMonitor {
 					WatchKey key = watcher.take();
 					for (WatchEvent<?> event : key.pollEvents()) {
 						if (event.kind() == OVERFLOW) {// 事件可能lost or discarded
-							continue;
+								continue;
 						}
-					Kind<?> kind = event.kind();
-					Path fileName = (Path) event.context();
-					logger.info("文件更新: " + fileName);
-					doHandle( kind,fileName );
+						Kind<?> kind = event.kind();
+						Path fileName = (Path) event.context();
+						logger.info("文件更新: " + fileName);
+						doHandle( kind,fileName );
+					}
+					if (!key.reset()) {
+						break;
+					}
 				}
-				if (!key.reset()) {
-					break;
-				}
-		}
-	} catch (Exception e) {
-		logger.info(e);
-	}
+			} catch (Exception e) {
+				logger.info(e);
+			}
 		}).start();
 
-		try {
-			logger.info("正在监听文件的变更");
-			Thread.sleep(1000 * 60 * 10);
-		} catch (InterruptedException e) {
-			e.printStackTrace();
-		}
+		logger.info("正在监听文件的变更");
+//		try {
+//			Thread.sleep(1000 * 60 * 10);
+//		} catch (InterruptedException e) {
+//			e.printStackTrace();
+//		}
 	}
 	
 	/** 子类不满足，重写该方法。
 	 * @param kind
 	 * @param fileName
 	 */
-	protected void doHandle(Kind<?> kind,Path fileName){
-		
-	}
+	protected abstract void doHandle(Kind<?> kind,Path fileName);
 }
