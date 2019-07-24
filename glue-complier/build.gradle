@@ -2,3 +2,10 @@ dependencies {
     compile project(':glue-boilerplate')
     compile rootProject.ext.dependencies["commons-jci"]
 }
+task showDependenciePath  {
+	println '!==showDependenciePath==!'
+	configurations.compile.each {
+		print it 
+		print ';'
+	}
+}
