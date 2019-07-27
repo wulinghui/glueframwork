@@ -19,6 +19,8 @@ allprojects {
 	    mavenLocal()
 	    maven { url "http://maven.aliyun.com/nexus/content/groups/public/" }
 	    maven { url "http://repo.maven.apache.org/maven2" }
+		maven { url "http://jcenter.bintray.com" }
+		
 	}
 	
 	dependencies {

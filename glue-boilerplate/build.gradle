@@ -1,4 +1,8 @@
 	dependencies {
 	    compile rootProject.ext.dependencies["commons-io"]
 	    compile project(':glue-log')
+	    compile project(':glue-commons')
+	    compile group: 'org.eclipse.jdt', name: 'org.eclipse.jdt.core', version: '3.18.0'
+	    compile group: 'org.javassist', name: 'javassist', version: '3.25.0-GA'
+		compile group: 'org.jd', name: 'jd-core', version: '1.0.6'
 	}
