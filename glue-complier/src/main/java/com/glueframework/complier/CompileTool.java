@@ -1,4 +1,4 @@
-package com.glueframework.boilerplate;
+package com.glueframework.complier;
 
 import javax.tools.*;
 
@@ -15,38 +15,38 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.Arrays;
 
-public class Eval {
+public class CompileTool {
 	protected static ILogger logger = LogMSG.getLogger();
 
-    private static WeakReference<Eval> mWeakReference = new WeakReference<>(new Eval());
+    private static WeakReference<CompileTool> mWeakReference = new WeakReference<>(new CompileTool());
 
-    public static Object eval() {
-        Eval eval = mWeakReference.get();
+    public static Object eval(String src) {
+        CompileTool eval = mWeakReference.get();
 
-        String method = "main";
+      //  String method = "main";
 
-        String codes = "public static void main(String[]args){" +
-                "System.out.print(\"hello world\"); }";
+      //  String codes = "public static void main(String[]args){" +
+               // "System.out.print(\"hello world\"); }";
 
-        eval.run(method,codes);
+        eval.run(src);
         return null;
     }    
 
-
+/*
     public static void main(String[] args) {
     	eval();   
     }
+*/
+    private Object run(String codes){
 
-    private Object run(String method,String codes){
-
-        String className = "com.aaa.Eval3";
-        StringBuilder sb = new StringBuilder();
+        String className = "";//没用
+     /*   StringBuilder sb = new StringBuilder();
         sb.append("package aaa;");
         sb.append("\n import com.compiler.lgx.A;");
         sb.append("\n public class Eval3{\n ");
         sb.append(codes);
-        sb.append("\n}");
-        Class<?> clazz = compile(className, sb.toString());
+        sb.append("\n}");*/
+        Class<?> clazz = compile(className,codes);
         /*
         try {
             // 生成对象
@@ -70,7 +70,7 @@ return null;
      * @param javaCodes javaCodes
      * @return Class
      */
-    private  Class<?> compile(String className, String javaCodes) {
+    private  Class<?> compile(String className,String javaCodes) {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
         StrSrcJavaObject srcObject = new StrSrcJavaObject(className, javaCodes);
@@ -87,7 +87,7 @@ return null;
         Iterable<String> options = Arrays.asList(flag, outDir);
         JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, null, options, null, fileObjects);
         boolean result = task.call();
-      /*  if (result == true) {
+    /*    if (result == true) {
             try {
                 return Class.forName(className);
             } catch (ClassNotFoundException e) {

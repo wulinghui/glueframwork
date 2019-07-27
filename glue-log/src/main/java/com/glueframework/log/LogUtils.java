@@ -3,6 +3,13 @@ package com.glueframework.log;
 import java.lang.reflect.Array;
 import java.util.Collection;
 
+/**
+ * @author 梁梁
+ * jdk 日志 无法输出debug
+ * @see https://zochen.iteye.com/blog/616151
+ * Level的五个等级SEVERE（最高值） 、WARNING 、INFO 、CONFIG 、FINE 、FINER 、FINEST（最低值）  。这个不同于log4j  
+ * # ILogger: TRACE, DEBUG, INFO, WARN, ERROR
+ */
 public class LogUtils {
 	public static  ILogger logger = LogMSG.getLogger();
 	public static void debugCollection(Collection args) {
