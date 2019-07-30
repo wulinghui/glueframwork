@@ -1,26 +1,27 @@
 package com.glueframework.boilerplate.common;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.nio.file.WatchEvent.Kind;
 import java.util.Map;
 
-
-
-
-
-
 import org.apache.commons.io.FileUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IClassFile;
+import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
-import org.eclipse.jdt.internal.core.ClassFile;
 
 public class JdtConvertDefault implements IJdtConvert {
 	ICompilationUnitHandle [] handles = null;
+	CompilationUnit createCompilationUnit = null;
 	
+	public CompilationUnit getCreateCompilationUnit() {
+		return createCompilationUnit;
+	}
+
 	public JdtConvertDefault() {
 		super();
 		init();
@@ -32,10 +33,9 @@ public class JdtConvertDefault implements IJdtConvert {
 	}
 
 	@Override
-	public String doHandle(Kind<?> kind, Path fileName) {
-		CompilationUnit createCompilationUnit = null;
+	public String doHandle(File file) {
 		try {
-			String src = FileUtils.readFileToString( fileName.toFile() ,"UTF-8");
+			String src = FileUtils.readFileToString( file ,"UTF-8");
 			createCompilationUnit = createCompilationUnit(src);
 			for (ICompilationUnitHandle handle : handles) {
 				handle.doHandle( createCompilationUnit );

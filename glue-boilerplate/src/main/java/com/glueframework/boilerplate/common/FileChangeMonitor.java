@@ -1,16 +1,12 @@
 package com.glueframework.boilerplate.common;
 
-import static java.nio.file.StandardWatchEventKinds.ENTRY_MODIFY;
-import static java.nio.file.StandardWatchEventKinds.OVERFLOW;
+import java.io.File;
+import java.io.FileFilter;
+import java.util.concurrent.TimeUnit;
 
-import java.io.IOException;
-import java.nio.file.FileSystems;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.file.WatchEvent;
-import java.nio.file.WatchEvent.Kind;
-import java.nio.file.WatchKey;
-import java.nio.file.WatchService;
+import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
+import org.apache.commons.io.monitor.FileAlterationMonitor;
+import org.apache.commons.io.monitor.FileAlterationObserver;
 
 import com.glueframework.log.ILogger;
 import com.glueframework.log.LogMSG;
@@ -22,55 +18,83 @@ import com.glueframework.log.LogMSG;
  */
 public abstract class FileChangeMonitor {
 	protected static ILogger logger = LogMSG.getLogger();
-	protected Path path;
+	final File directory;
+	final FileFilter fileFilter;
 	
-	public FileChangeMonitor() {
+	
+	/**
+	 * @param directory
+	 */
+	public FileChangeMonitor(File directory) {
 		super();
+		this.directory = directory;
+		this.fileFilter = null;
 	}
 
-	public FileChangeMonitor(String pathStr) {
+	/**
+	 * @param directory 监控目录
+	 * @param fileFilter
+	 */
+	public FileChangeMonitor(File directory, FileFilter fileFilter) {
 		super();
-		// path = Paths.get("c://tmo");
-		path = Paths.get(pathStr);
+		this.directory = directory;
+		this.fileFilter = fileFilter;
 	}
 
-	public void fileUpWather() throws IOException {
 
-		WatchService watcher = FileSystems.getDefault().newWatchService();
-		path.register(watcher, ENTRY_MODIFY);
-		new Thread(() -> {
-			try {
-				while (true) {
-					WatchKey key = watcher.take();
-					for (WatchEvent<?> event : key.pollEvents()) {
-						if (event.kind() == OVERFLOW) {// 事件可能lost or discarded
-								continue;
-						}
-						Kind<?> kind = event.kind();
-						Path fileName = (Path) event.context();
-						logger.info("文件更新: " + fileName);
-						doHandle( kind,fileName );
-					}
-					if (!key.reset()) {
-						break;
-					}
-				}
-			} catch (Exception e) {
-				logger.info(e);
+	public void fileUpWather() throws Exception {
+        // 轮询间隔 1 秒 
+        long interval = TimeUnit.SECONDS.toMillis(1);  
+        // 创建一个文件观察器用于处理文件的格式 
+        FileAlterationObserver observer = new FileAlterationObserver(directory,fileFilter);
+        // 设置文件变化监听器
+        observer.addListener(new FileAlterationListenerAdaptor(){
+
+			@Override
+			public void onDirectoryCreate(File directory) {
+				doHandleDirectory(directory);
 			}
-		}).start();
 
-		logger.info("正在监听文件的变更");
-//		try {
-//			Thread.sleep(1000 * 60 * 10);
-//		} catch (InterruptedException e) {
-//			e.printStackTrace();
-//		}
+			@Override
+			public void onDirectoryChange(File directory) {
+				doHandleDirectory(directory);
+			}
+
+			@Override
+			public void onDirectoryDelete(File directory) {
+				doHandleDirectory(directory);
+			}
+
+			@Override
+			public void onFileCreate(File file) {
+				doHandleFile(file);
+			}
+
+			@Override
+			public void onFileChange(File file) {
+				doHandleFile(file);
+			}
+
+			@Override
+			public void onFileDelete(File file) {
+				doHandleFile(file);
+			}
+        	
+        });  
+        // 创建文件变化监听器
+        FileAlterationMonitor monitor = new FileAlterationMonitor(interval, observer);
+        // 开始监控
+        monitor.start();
 	}
 	
-	/** 子类不满足，重写该方法。
+	/**处理文件夹的变化。
+	 * @param file
+	 */
+	protected  void doHandleDirectory(File file){}
+	/**处理文件的变化。 
+	 * 子类不满足，重写该方法。
 	 * @param kind
 	 * @param fileName
 	 */
-	protected abstract void doHandle(Kind<?> kind,Path fileName);
+	protected abstract void doHandleFile(File file);
 }

@@ -36,7 +36,6 @@ public class DebugClass {
 				} catch (IllegalAccessException | IllegalArgumentException
 						| InvocationTargetException e) {
 					sb.append(String.format("methode=[%s] , Exception =[%s]\n", name ,e.getMessage() ));
-					e.printStackTrace();
 				}
 			}
 		}
