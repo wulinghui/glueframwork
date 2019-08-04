@@ -1,6 +1,8 @@
 dependencies {
     compile project(':glue-boilerplate')
     compile rootProject.ext.dependencies["commons-jci"]
+    compile group: 'com.h2database', name: 'h2', version: '1.4.198'
+    compile group: 'commons-dbutils', name: 'commons-dbutils', version: '1.7'
 }
 task showDependenciePath  {
 	println '!==showDependenciePath==!'
