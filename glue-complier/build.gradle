@@ -3,6 +3,9 @@ dependencies {
     compile rootProject.ext.dependencies["commons-jci"]
     compile group: 'com.h2database', name: 'h2', version: '1.4.198'
     compile group: 'commons-dbutils', name: 'commons-dbutils', version: '1.7'
+    compile group: 'org.apache.commons', name: 'commons-configuration2', version: '2.1.1'
+    compile group: 'commons-beanutils', name: 'commons-beanutils', version: '1.9.3'
+    compile group: 'commons-jxpath', name: 'commons-jxpath', version: '1.3'
 }
 task showDependenciePath  {
 	println '!==showDependenciePath==!'
