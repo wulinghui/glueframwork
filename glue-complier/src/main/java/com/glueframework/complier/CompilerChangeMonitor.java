@@ -18,17 +18,17 @@ public class CompilerChangeMonitor extends JdtChangeMonitor {
 	 * @param jdtConvert
 	 */
 	public CompilerChangeMonitor(File directory, FileFilter fileFilter,
-			IJdtConvert jdtConvert) {
-		super(directory, fileFilter, jdtConvert);
-	}
+			IJdtConvert jdtConvert) {  
+		super(directory, fileFilter, jdtConvert); 
+	}         
 
-	/**
-	 * @param directory
-	 */
-	public CompilerChangeMonitor(File directory) {
-		super(directory);
-	}
-
+	/**  
+	 * @param directory  
+	 */ 
+	public CompilerChangeMonitor(File directory) {   
+		super(directory);  
+	}                            
+         
 	
 	@Override
 	protected void afterDo(String srcInner) {

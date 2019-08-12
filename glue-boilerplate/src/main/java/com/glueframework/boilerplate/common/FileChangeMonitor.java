@@ -36,8 +36,8 @@ public abstract class FileChangeMonitor {
 	 * @param fileFilter
 	 */
 	public FileChangeMonitor(File directory, FileFilter fileFilter) {
-		super();
-		this.directory = directory;
+		super(); 
+		this.directory = directory;    
 		this.fileFilter = fileFilter;
 	}
 

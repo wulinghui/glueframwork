@@ -13,11 +13,19 @@ import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.monitor.FileAlterationObserver;
+import org.eclipse.core.resources.IFile;
+import org.eclipse.jdt.core.IClassFile;
+import org.eclipse.jdt.core.JavaCore;
+import org.eclipse.jdt.core.dom.ASTParser;
+import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.junit.After;
 import org.junit.Test;
 
 import com.glueframework.boilerplate.common.IJdtConvert;
+import com.glueframework.boilerplate.common.JdtConvertDefault;
+import com.glueframework.common.util.DebugClass;
 import com.glueframework.complier.CompilerChangeMonitor;
 import com.glueframework.log.ILogger;
 import com.glueframework.log.LogMSG;
@@ -50,12 +58,38 @@ public class FileUpTest {
 		logger.info("======property======"+property);
 		try {
 			changeMonitor.fileUpWather();
+			logger.info("============");      
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	public static void main(String[] args) throws Exception {
+		JdtConvertDefault jdtConvertDefault = new JdtConvertDefault();
+
+		 String src =  FileUtils.readFileToString( new File("Z:\\Virtual-Machines-Files-Writer\\workpace\\glueframwork\\glue-boilerplate\\src\\main\\java\\com\\glueframework\\boilerplate\\common\\JdtConvertDefault.java") ,"UTF-8"); 
+		 //"class A { void method1(int b){;} }";
+		CompilationUnit createCompilationUnit = jdtConvertDefault.createCompilationUnit(src);
+		 DebugClass.printAllGetMethod(createCompilationUnit);
+	 
+		 
+		// jdt无法这样直接解析class文件。需要先反编译一下。
+		ASTParser parser = jdtConvertDefault.createAstParser();
+		Class<?> forName = Class.forName("com.glueframework.boilerplate.common.JdtChangeMonitor");
+		// org.eclipse.jdt.internal.compiler.env.IModule
+		IFile file = null; 
+		IClassFile source =  JavaCore.createClassFileFrom( file );
+		parser.setSource(source);
+		logger.info("=====1111111111=======");
+		
+		String pathStr = "Y://Virtual-Machines-Files-Writer//workpace//glueframwork//glue-complier//src//main//java";
+		CompilerChangeMonitor changeMonitor = new CompilerChangeMonitor( new File(pathStr) );
+		try {
+			changeMonitor.fileUpWather();
 			logger.info("============");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
 	 @Test
 	    public void testFileUpWather() throws IOException {
 	        Path path = Paths.get("c://tmo");

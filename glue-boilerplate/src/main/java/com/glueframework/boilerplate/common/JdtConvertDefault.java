@@ -51,20 +51,21 @@ public class JdtConvertDefault implements IJdtConvert {
 
         // https://www.cnblogs.com/SEC-fsq/p/7845222.html
         ASTParser parser = createAstParser();
-        IClassFile source = null;
         
+//        IClassFile source = null;
 //        try {
 //            src = FileUtils.readFileToString(new File("JdtTest.java"),"UTF-8");  //要解析的文件
 //        } catch (Exception e) {
 //            e.printStackTrace();
 //        }
+//        parser.setSource(source );
+
         parser.setSource(src.toCharArray());
-//        parser.setSource( );
         CompilationUnit cu = (CompilationUnit) parser.createAST(null);  //下个断点可以看看cu的types成员就是整个语法树
         return cu;
 	}
 
-	protected ASTParser createAstParser() {
+	public ASTParser createAstParser() {
 		ASTParser parser = ASTParser.newParser(AST.JLS8); //设置Java语言规范版本
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
 

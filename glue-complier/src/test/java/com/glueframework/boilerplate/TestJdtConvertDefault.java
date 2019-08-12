@@ -1,4 +1,4 @@
-package com.glueframework.boilerplate.common;
+package com.glueframework.boilerplate;
 
 import java.io.File;
 
@@ -6,6 +6,7 @@ import org.apache.commons.io.FileUtils;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.junit.Test;
 
+import com.glueframework.boilerplate.common.JdtConvertDefault;
 import com.glueframework.common.util.DebugClass;
 
 public class TestJdtConvertDefault extends JdtConvertDefault{
@@ -17,6 +18,6 @@ public class TestJdtConvertDefault extends JdtConvertDefault{
 		 DebugClass.printAllGetMethod(createCompilationUnit);
 	}
 	public static void main(String[] args) throws Exception {
-		new TestJdtConvertDefault().testCreateCompilationUnit(); 
-	}  
+		new TestJdtConvertDefault().testCreateCompilationUnit();    
+	}	
 }
