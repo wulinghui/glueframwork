@@ -29,7 +29,7 @@ public class JdtConvertDefault implements IJdtConvert {
 	
 	protected void init() {
 		handles = (ICompilationUnitHandle[]) System.getProperties()
-				.get(JdtConvertDefault.class.getName());
+				.getOrDefault(JdtConvertDefault.class.getName() , new ICompilationUnitHandle[0]);
 	}
 
 	@Override

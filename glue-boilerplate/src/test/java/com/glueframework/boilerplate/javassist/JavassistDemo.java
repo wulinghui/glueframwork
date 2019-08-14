@@ -37,12 +37,14 @@ public class JavassistDemo {
         DebugClass.printAllMethod(m);  
         String src = "{ System.out.println(\"dsdasda.say():\"); }";
         String file = this.getClass().getResource("").getFile();
+//        new Hello().say(); 
         m.setBody(src);  
+//        new Hello().say(); 
 //		m.insertBefore(src);
         Class c = cc.toClass();
         Hello h = (Hello)c.newInstance();
         h.say();
-       
+        new Hello().say(); 
     }
 	@Test
     public  void writeFile() throws Exception {

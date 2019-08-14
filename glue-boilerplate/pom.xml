@@ -43,10 +43,6 @@
     <artifactId>jd-core</artifactId>
     <version>1.0.6</version>       
 </dependency>       
-<dependency> 
-	<groupId>com.glueframework</groupId>
-    <artifactId>glue-log</artifactId> 
-</dependency>
 <dependency>
 	<groupId>com.glueframework</groupId>
     <artifactId>glue-commons</artifactId>

@@ -16,6 +16,7 @@ public class TestJdtConvertDefault extends JdtConvertDefault{
 		CompilationUnit createCompilationUnit = super.createCompilationUnit(src);
 		 DebugClass.printAllGetMethod(createCompilationUnit);
 	}
+	
 	public static void main(String[] args) throws Exception {
 		new TestJdtConvertDefault().testCreateCompilationUnit(); 
 	}  

@@ -32,8 +32,9 @@ public abstract class JdtChangeMonitor extends FileChangeMonitor {
 		super.logger.info("doHandleFile-path={}",file);
 		String srcInner = jdtConvert.doHandle(file);
 		// 交给编译器处理，编译。
-		afterDo(srcInner);
+		afterDo(file , srcInner);
 	}
 	
-	protected abstract void afterDo(String srcInner);
+	protected abstract void afterDo(File file , String srcInner);
+	
 }

@@ -77,7 +77,7 @@ public class SampleLoader extends ClassLoader {
     
     public static void setDefaultContextClassLoaderOfCurrentThread(){
     	Thread currentThread = Thread.currentThread();
-		currentThread.setContextClassLoader( new CombinationClassLoader(currentThread.getContextClassLoader() ,
-    			new SampleLoader()));
+		currentThread.setContextClassLoader( new CombinationClassLoader( new SampleLoader()  ,
+				currentThread.getContextClassLoader()));
     }
 }
