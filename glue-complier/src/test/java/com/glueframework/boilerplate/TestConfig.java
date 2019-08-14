@@ -32,7 +32,7 @@ Configurations configs = new Configurations();
 	            // 本例中是PropertiesConfiguration,要在PropertiesConfiguration实例创建之前调用。
 	            FileBasedConfigurationBuilder.setDefaultEncoding(PropertiesConfiguration.class, "UTF-8");
 	            PropertiesConfiguration propConfig = configs.properties(this.getClass().getClassLoader().getResource("database.properties"));
-	           // System.out.println(propConfig.getString("log4j.appender.CONSOLE.Target"));
+	            System.out.println(propConfig.getString("log4j.appender.CONSOLE.Target"));
 	            //System.out.println(propConfig.getBoolean("log4j.appender.LOGFILE.Append"));
 	           // System.out.println(propConfig.getString("test"));
 		}
