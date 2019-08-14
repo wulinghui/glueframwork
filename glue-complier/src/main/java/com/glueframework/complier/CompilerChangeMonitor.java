@@ -31,7 +31,7 @@ public class CompilerChangeMonitor extends JdtChangeMonitor {
          
 	
 	@Override
-	protected void afterDo(String srcInner) {
+	protected void afterDo(File file , String srcInner) {
 		// 把srcInner,内容编译class，生成到指定目录。
 		CompileTool tool = new CompileTool();
 		CompilationUnit createCompilationUnit = this.jdtConvert
@@ -41,10 +41,12 @@ public class CompilerChangeMonitor extends JdtChangeMonitor {
 				.types().get(0);
 		
 		className = createCompilationUnit.getPackage().getName().toString()
-				+ classType.getName().toString();
-		tool.compile(className, srcInner);
+				+ "."+ classType.getName().toString();
+		if( tool.compile(className, srcInner) ){
+			this.logger.debug("user javac compile javaFile seccuess=[{}] ",file );
+		}
 	}
-	
+	 
 	public void setJar(String[] jar) {
 		this.jar = jar;
 	}

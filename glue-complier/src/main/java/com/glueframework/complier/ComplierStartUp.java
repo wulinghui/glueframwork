@@ -12,16 +12,16 @@ public class ComplierStartUp {
 	public static void run1(String[] src , String[] jar  , String [] target ) throws Exception{
 		// 2次修改
 		CompilerChangeMonitor changeMonitor = null;
-		for (String pathStr : src) {
+		for (String pathStr : src) { 
 			File directory = new File (pathStr);
 			logger.debug("directory=[{}]" , directory.getAbsolutePath());
 			changeMonitor = new CompilerChangeMonitor( directory );
 			changeMonitor.setJar(jar);   
 			changeMonitor.setTarget(target);
 			changeMonitor.fileUpWather();        
-		}          
-	}       
-	 
+		}                 
+	}                                                   
+	     
 	public static void main(String[] args) throws Exception {  
 		run1( new String[]{
 			""	 

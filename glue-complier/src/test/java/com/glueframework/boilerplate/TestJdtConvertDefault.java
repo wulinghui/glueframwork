@@ -8,7 +8,7 @@ import org.junit.Test;
 
 import com.glueframework.boilerplate.common.JdtConvertDefault;
 import com.glueframework.common.util.DebugClass;
-
+  
 public class TestJdtConvertDefault extends JdtConvertDefault{
 	@Test
 	public void testCreateCompilationUnit() throws Exception {
@@ -16,6 +16,9 @@ public class TestJdtConvertDefault extends JdtConvertDefault{
 		 //"class A { void method1(int b){;} }";
 		CompilationUnit createCompilationUnit = super.createCompilationUnit(src);
 		 DebugClass.printAllGetMethod(createCompilationUnit);
+	}
+	public void hello(){
+		System.out.println("fdss1fds2321ss");
 	}
 	public static void main(String[] args) throws Exception {
 		new TestJdtConvertDefault().testCreateCompilationUnit();    

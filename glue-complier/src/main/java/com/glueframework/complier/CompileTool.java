@@ -35,7 +35,7 @@ public class CompileTool {
         try {
             File classPath = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
             outDir = classPath.getAbsolutePath() + File.separator;
-            logger.debug("classPath={}",outDir);
+            logger.debug("classPath={} \n className=[{}] \n src=[{}]" , outDir , className , javaCodes  );
         } catch (URISyntaxException e1) {
         	logger.warn(e1);
         }

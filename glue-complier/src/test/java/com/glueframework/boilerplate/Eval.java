@@ -41,13 +41,14 @@ public class Eval {
 
         String className = "com.aaa.Eval3";
         StringBuilder sb = new StringBuilder();
-        sb.append("package aaa;");
-        sb.append("\n import com.compiler.lgx.A;");
+        sb.append("package com.aaa;");
+//        sb.append("\n import com.compiler.lgx.A;");
         sb.append("\n public class Eval3{\n ");
         sb.append(codes);
         sb.append("\n}");
+        logger.debug("className=[{}] \n src=[{}]" , className , sb );
         Class<?> clazz = compile(className, sb.toString());
-        /*
+        
         try {
             // 生成对象
             Object obj = clazz.newInstance();
@@ -59,8 +60,7 @@ public class Eval {
         } catch (Exception e) {
             e.printStackTrace();
             return null;
-        }*/
-return null;
+        }
     }
 
 
@@ -87,13 +87,13 @@ return null;
         Iterable<String> options = Arrays.asList(flag, outDir);
         JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, null, options, null, fileObjects);
         boolean result = task.call();
-      /*  if (result == true) {
+        if (result == true) {
             try {
                 return Class.forName(className);
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }*/
+        }
         return null;
     }
 
