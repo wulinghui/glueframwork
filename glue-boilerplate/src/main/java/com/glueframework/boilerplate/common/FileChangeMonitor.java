@@ -43,7 +43,7 @@ public abstract class FileChangeMonitor {
 
 
 	public void fileUpWather() throws Exception {
-        // 轮询间隔 1 秒 
+		// 轮询间隔 1 秒 
         long interval = TimeUnit.SECONDS.toMillis(1);  
         // 创建一个文件观察器用于处理文件的格式 
         FileAlterationObserver observer = new FileAlterationObserver(directory,fileFilter);
@@ -81,7 +81,7 @@ public abstract class FileChangeMonitor {
 			}
         	
         });  
-        // 创建文件变化监听器
+     // 创建文件变化监听器
         FileAlterationMonitor monitor = new FileAlterationMonitor(interval, observer);
         // 开始监控
         monitor.start();

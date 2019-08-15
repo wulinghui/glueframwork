@@ -1,11 +1,13 @@
 package com.glueframework.common.util;
 
 import com.glueframework.common.lang.ArrayUtils;
+import com.glueframework.log.ILogger;
+import com.glueframework.log.LogMSG;
 
 
 public class CombinationClassLoader  extends ClassLoader{
 	ClassLoader [] args;
-
+	protected static ILogger logger = LogMSG.getLogger();
 	public CombinationClassLoader(ClassLoader... args) {
 		super();
 		if( ArrayUtils.size(args) > 0 ) 
@@ -20,8 +22,8 @@ public class CombinationClassLoader  extends ClassLoader{
 				cla = element.loadClass(name);
 				if( cla == null) 
 					return cla;
-			} catch (Exception e) {
-				
+			} catch (Throwable e) {
+				logger.debug(e);  
 			}
 		}
 		return super.loadClass(name);

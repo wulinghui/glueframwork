@@ -11,5 +11,11 @@
     <groupId>org.apache.commons</groupId>
     <artifactId>commons-lang3</artifactId>
 </dependency>
+<dependency> 
+	<groupId>com.glueframework</groupId>
+    <artifactId>glue-log</artifactId> 
+</dependency> 
   </dependencies>
 </project>
+
+

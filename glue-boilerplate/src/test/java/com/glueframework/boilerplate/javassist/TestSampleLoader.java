@@ -58,7 +58,7 @@ public class TestSampleLoader {
 						method.invoke( clazz.newInstance()) ; 
 						System.out.println(   contextClassLoader );
 						method = null;
-					} catch (Exception e) {  
+					} catch (Exception e) {
 						e.printStackTrace();
 					}  
 					contextClassLoader = null;

@@ -1,0 +1,33 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  
+    <parent>
+    <groupId>com.glueframework</groupId>
+    <artifactId>glue-version</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+  </parent>
+  <artifactId>glue-test-agent</artifactId>
+  
+  <dependencies>
+  	<!-- https://mvnrepository.com/artifact/com.sun/tools -->
+<dependency>
+   <groupId>jdk.tools</groupId>
+   <artifactId>jdk.tools</artifactId>
+</dependency>
+<dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+</dependency>  
+<dependency>
+	<groupId>com.glueframework</groupId>
+    <artifactId>glue-agent</artifactId>
+    <scope>system</scope> 
+<!--     ${user.home}/.m2/repository -->
+<!--    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/0.0.1-SNAPSHOT/glue-agent-0.0.1-SNAPSHOT.jar</systemPath>-->  
+  <!--    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}.jar</systemPath>-->
+<!--  <systemPath>${settings.localRepository}/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}-jar-with-dependencies.jar</systemPath>  -->
+    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}-jar-with-dependencies.jar</systemPath>
+</dependency>   
+  </dependencies>
+             
+</project>

@@ -3,13 +3,17 @@ import java.io.InputStream;
 import java.lang.instrument.ClassDefinition;
 import java.lang.instrument.Instrumentation;
 import java.util.TimerTask;
+import java.util.logging.Logger;
  
 public  class  ReloadTask  extends  TimerTask {
+	private static  Logger logger = Logger.getLogger(ReloadTask.class.getName());
+	
     private  Instrumentation  inst;
  
     protected  ReloadTask(Instrumentation  inst){
         this.inst=inst;
     }
+    
  
     @Override
     public  void  run() {
@@ -30,9 +34,12 @@ public  class  ReloadTask  extends  TimerTask {
             ex.printStackTrace();
        }
     }
- 
+//    public static void main(String[] args) {
+//		LogUtil.debug("zzzzzzz");
+//	}
+
     private  byte[]  loadClassBytes(Class  cls,String  clsname) throws  Exception{
-//        System.out.println(clsname+":"+cls);
+        logger.finest(clsname+":"+cls);
         InputStream  is=cls.getClassLoader().getSystemClassLoader().getResourceAsStream(clsname);
         if(is==null)return  null;
         byte[]  bt=new  byte[is.available()];
