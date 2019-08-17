@@ -21,7 +21,7 @@ public final class ConfigerService {
 		this.bean = bean;
 	}
 
-	public void add(String key , String value , ConfigerBeanSuper beanSuper){
+	public void add(String key  , ConfigerBeanSuper beanSuper){
 		String flagClass = bean.getFlagClass();
 		ConfigerHandle handle = getHandle(flagClass);
 		handle.add(beanSuper);
@@ -32,7 +32,7 @@ public final class ConfigerService {
 		ConfigerHandle handle = getHandle(flagClass);
 		handle.delete(beanSuper);
 	}
-	public void update(String key,String value , ConfigerBeanSuper beanSuper){
+	public void update(String key , ConfigerBeanSuper beanSuper){
 		String flagClass = bean.getFlagClass();
 		ConfigerHandle handle = getHandle(flagClass);
 		handle.update(beanSuper);

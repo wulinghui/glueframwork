@@ -24,6 +24,7 @@ public class DBTools {
 		List<Field> allFieldsList = FieldUtils.getAllFieldsList(clas);
 		for (Field field : allFieldsList) {
 			String fieldName = field.getName();
+			
 		}
 		return true;
 	}
