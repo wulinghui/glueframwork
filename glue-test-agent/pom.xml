@@ -9,25 +9,20 @@
   <artifactId>glue-test-agent</artifactId>
   
   <dependencies>
+  <dependency>
+    <groupId>junit</groupId>
+    <artifactId>junit</artifactId>
+</dependency>  
   	<!-- https://mvnrepository.com/artifact/com.sun/tools -->
 <dependency>
    <groupId>jdk.tools</groupId>
    <artifactId>jdk.tools</artifactId>
 </dependency>
-<dependency>
-    <groupId>junit</groupId>
-    <artifactId>junit</artifactId>
-</dependency>  
+
 <dependency>
 	<groupId>com.glueframework</groupId>
     <artifactId>glue-agent</artifactId>
-    <scope>system</scope> 
-<!--     ${user.home}/.m2/repository -->
-<!--    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/0.0.1-SNAPSHOT/glue-agent-0.0.1-SNAPSHOT.jar</systemPath>-->  
-  <!--    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}.jar</systemPath>-->
-<!--  <systemPath>${settings.localRepository}/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}-jar-with-dependencies.jar</systemPath>  -->
-    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}-jar-with-dependencies.jar</systemPath>
-</dependency>   
+</dependency>    
   </dependencies>
              
 </project>

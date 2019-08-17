@@ -39,5 +39,16 @@
 </dependency>
 
 
+  	<!-- https://mvnrepository.com/artifact/com.sun/tools -->
+<dependency>
+   <groupId>jdk.tools</groupId>
+   <artifactId>jdk.tools</artifactId>
+</dependency>
+
+<dependency>
+	<groupId>com.glueframework</groupId>
+    <artifactId>glue-agent</artifactId>
+</dependency>   
+
 </dependencies>
 </project>

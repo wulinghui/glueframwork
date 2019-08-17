@@ -1,4 +1,4 @@
-package com.glueframework.boilerplate;
+package com.glueframework.complier;
 
 import java.sql.SQLException;
 
@@ -13,7 +13,7 @@ public class TestH2 {
 		
 		// 3.2封装对glue_configer_history的查。
 		
-		// 4. 把查询出来的，value由json转化成bean。
+		// 4.            把查询出来的，value由json转化成bean。    表数据转bean。
 		
 		// 5. 实现ioc的ConversionHandler做bean的转化。
 		

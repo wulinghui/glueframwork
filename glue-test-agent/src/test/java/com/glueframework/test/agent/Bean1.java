@@ -4,17 +4,17 @@ package com.glueframework.test.agent;
  
 public  class  Bean1 {  
 	public  void  test1(){ 
-    	System.out.println("=qq111111111111     ====dsdcxzczasds======fdsdf===============");
-      System.out.println("=cxzcxzcxz     ====dsdcxzczasds======fdsdf===============");
-    } 
-	
-	public  void  tes2(){ 
-    	System.out.println("=qq111111111111     ====dsdcxzczasds======fdsdf===============");
-      System.out.println("=xcxzcxzc     ====dsdcxzczasds======fdsdf===============");
-    } 
+    	System.out.println("777777777777 ");
+      System.out.println("7777777777");
+    }                   
+	     
+	public  void  tes2(){    
+    	System.out.println("555555555");
+      System.out.println("5555555555");
+    }    
     public static void main(String[] args) {            
 //    	VirtualMachine virtualMachine = null;
-//    	virtualMachine.   
+//    	virtualMachine.           
     	System.out.println(111111111);     
-	}
-}
+	}     
+}  

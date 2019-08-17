@@ -8,6 +8,7 @@ import org.eclipse.jdt.core.dom.TypeDeclaration;
 
 import com.glueframework.boilerplate.common.IJdtConvert;
 import com.glueframework.boilerplate.common.JdtChangeMonitor;
+import com.glueframework.commons.CompileTool;
 
 public class CompilerChangeMonitor extends JdtChangeMonitor {
 	 String[] jar , target;
@@ -33,7 +34,6 @@ public class CompilerChangeMonitor extends JdtChangeMonitor {
 	@Override
 	protected void afterDo(File file , String srcInner) {
 		// 把srcInner,内容编译class，生成到指定目录。
-		CompileTool tool = new CompileTool();
 		CompilationUnit createCompilationUnit = this.jdtConvert
 				.getCreateCompilationUnit();
 		String className;
@@ -42,7 +42,8 @@ public class CompilerChangeMonitor extends JdtChangeMonitor {
 		
 		className = createCompilationUnit.getPackage().getName().toString()
 				+ "."+ classType.getName().toString();
-		if( tool.compile(className, srcInner) ){
+		CompileTool tool = new CompileTool(className);
+		if( tool.compile( srcInner ) ){
 			this.logger.debug("user javac compile javaFile seccuess=[{}] ",file );
 		}
 	}

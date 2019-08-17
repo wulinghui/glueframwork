@@ -1,11 +1,12 @@
 package com.glueframework.boilerplate.javassist;
 
-import javassist.ByteArrayClassPath;
 import javassist.ClassClassPath;
 import javassist.ClassPath;
 import javassist.ClassPool;
 import javassist.CtClass;
+import javassist.CtField;
 import javassist.CtMethod;
+import javassist.Modifier;
 import javassist.NotFoundException;
 import javassist.URLClassPath;
 
@@ -29,7 +30,7 @@ public class JavassistDemo {
 		} catch (NotFoundException e) {
 			e.printStackTrace();
 		}
-	}   
+	}
 	@Test
     public  void hello() throws Exception {
 //        DebugClass.printAllMethod(cc);    
@@ -94,7 +95,7 @@ public class JavassistDemo {
 		CtClass cc = cp.makeClass("JavassistDemo");
 //		cc.addMethod(m);
 		logger.info(cc.toClass().toString() );   
-	} 
+	}
 	@Test // 
     public  void getClassPool() throws Exception {
 		cp = ClassPool.getDefault();   // 单例
@@ -122,9 +123,18 @@ public class JavassistDemo {
 		CtClass cc2 = pool.get("Pair");    // cc2 is identical to cc.
 		CtClass cc3 = pool.get("Point");   // cc3 is not identical to cc.
 	}
-	@Test // 方法可以定义一个新类。
-    public  void copy1() throws Exception {
-		
+	@Test // 修改系统类
+    public  void hiddenValue() throws Exception {
+		ClassPool pool = ClassPool.getDefault();
+		CtClass cc = pool.get("java.lang.String");
+		CtField f = new CtField(CtClass.intType, "hiddenValue", cc);
+		f.setModifiers(Modifier.PUBLIC);
+		cc.addField(f);
+		cc.writeFile(".");
+		Class<?> class1 = cc.toClass();
+		System.out.println(class1.getField("hiddenValue").getName());
 	}
+	
+	
 }
 	

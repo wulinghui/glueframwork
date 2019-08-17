@@ -125,7 +125,14 @@
 	<groupId>com.glueframework</groupId>
     <artifactId>glue-agent</artifactId>
     <version>${glueframework-version}</version>
-</dependency> 
+    <scope>system</scope> 
+<!--     ${user.home}/.m2/repository -->
+<!--    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/0.0.1-SNAPSHOT/glue-agent-0.0.1-SNAPSHOT.jar</systemPath>-->  
+  <!--    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}.jar</systemPath>-->
+<!--  <systemPath>${settings.localRepository}/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}-jar-with-dependencies.jar</systemPath>  -->
+    <systemPath>${user.home}/.m2/repository/com/glueframework/glue-agent/${glueframework-version}/glue-agent-${glueframework-version}-jar-with-dependencies.jar</systemPath>
+</dependency>
+ 
 <dependency>
 	<groupId>com.glueframework</groupId>
     <artifactId>glue-test-agent</artifactId>

@@ -1,4 +1,4 @@
-package com.glueframework.complier;
+package com.glueframework.commons;
 
 import java.io.File;
 import java.net.URI;
@@ -18,24 +18,35 @@ public class CompileTool {
 	protected static ILogger logger = LogMSG.getLogger();
 
 
-
+	String outDir = "";
+	final String className;
+	String javaCodes;
+	File outFile;
+	  /**
+		 * @param className
+		 */
+		public CompileTool(String className) {
+			super();
+			this.className = className;
+		}
+	
     /**
      * 装载字符串成为java可执行文件
      * @param className className
      * @param javaCodes javaCodes
      * @return Class        
      */
-    public boolean compile(String className,String javaCodes) {
+    public boolean compile(String javaCodes) {
         JavaCompiler compiler = ToolProvider.getSystemJavaCompiler();
         StandardJavaFileManager fileManager = compiler.getStandardFileManager(null, null, null);
         StrSrcJavaObject srcObject = new StrSrcJavaObject(className, javaCodes);
         Iterable<? extends JavaFileObject> fileObjects = Arrays.asList(srcObject);
         String flag = "-d";   
-        String outDir = "";
         try {
             File classPath = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
             outDir = classPath.getAbsolutePath() + File.separator;
-            logger.debug("classPath={} \n className=[{}] \n src=[{}]" , outDir , className , javaCodes  );
+            outFile = new File(outDir,className.replace(".", File.separator)+".class");  
+            logger.debug("classPath={} \n className=[{}] \n src=[{}]   \n file = [{}]  file-exists={}" , outDir , className , javaCodes  , outFile ,outFile.exists() );
         } catch (URISyntaxException e1) {
         	logger.warn(e1);
         }
@@ -45,7 +56,10 @@ public class CompileTool {
     }
 
 
-    private static class StrSrcJavaObject extends SimpleJavaFileObject {
+  
+
+
+	private static class StrSrcJavaObject extends SimpleJavaFileObject {
         private String content;
         StrSrcJavaObject(String name, String content) {
             super(URI.create("string:///" + name.replace('.', '/') + Kind.SOURCE.extension), Kind.SOURCE);
@@ -55,5 +69,27 @@ public class CompileTool {
             return content;
         }
     }
+
+
+
+
+
+	public static ILogger getLogger() {
+		return logger;
+	}
+
+	public String getOutDir() {
+		return outDir;
+	}
+
+	public String getClassName() {
+		return className;
+	}
+	public String getJavaCodes() {
+		return javaCodes;
+	}
+	public File getOutFile() {
+		return outFile;
+	}
 
 }

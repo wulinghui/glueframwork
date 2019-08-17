@@ -10,7 +10,7 @@ package com.glueframework.confinger;
  * 用户做一套规范出来的话，会把他想要的配置方式，默认往配置表里存放，甚至都需要写注解。
  * 6. 利用sql批量修改容易。
  */
-public class ConfigerBean {
+public class ConfigerBean extends ConfigerBeanSuper{
 	/*
 	 <bean id="person" class="com.spring.xmlBean.Person">
         <property name="name" value="Little-Koala"></property>
@@ -22,7 +22,6 @@ public class ConfigerBean {
     
     select * from ConfigerBean where value like '%address%' 
 	 */
-	String value;  // 
 	
 	
 	String key;  // person 
@@ -32,12 +31,59 @@ public class ConfigerBean {
 	String groupId;
 	
 	String artifactId;
-	
-	String version;
 
-	String createTime;
+	final String createTime = "" ;
 	
-	String updateTime;
-	// 配置项，他可能在运行时可以修改，运行时不可以修改 ，压根就不可修改 ，修改校验
-	String flag;
+	String updateTime = "" ;
+	//  对应处理value的handles   配置项，他可能在运行时可以修改，运行时不可以修改 ，压根就不可修改 ，修改校验
+	String flagClass = "com.glueframework.confinger.ConfigerHandle";
+	//   这个是给flagValue的值。
+	String flagValue;
+	public String getKey() {
+		return key;
+	}
+	public void setKey(String key) {
+		this.key = key;
+	}
+	public String getEnvironment() {
+		return environment;
+	}
+	public void setEnvironment(String environment) {
+		this.environment = environment;
+	}
+	public String getGroupId() {
+		return groupId;
+	}
+	public void setGroupId(String groupId) {
+		this.groupId = groupId;
+	}
+	public String getArtifactId() {
+		return artifactId;
+	}
+	public void setArtifactId(String artifactId) {
+		this.artifactId = artifactId;
+	}
+	public String getCreateTime() {
+		return createTime;
+	}
+	public String getUpdateTime() {
+		return updateTime;
+	}
+	public void setUpdateTime(String updateTime) {
+		this.updateTime = updateTime;
+	}
+	public String getFlagClass() {
+		return flagClass;
+	}
+	public void setFlagClass(String flagClass) {
+		this.flagClass = flagClass;
+	}
+	public String getFlagValue() {
+		return flagValue;
+	}
+	public void setFlagValue(String flagValue) {
+		this.flagValue = flagValue;
+	}
+	
+	
 }

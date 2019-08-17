@@ -3,6 +3,7 @@ package com.glueframework.agent;
 import java.io.File;
 import java.io.InputStream;
 import java.lang.instrument.ClassDefinition;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.io.monitor.FileAlterationListenerAdaptor;
@@ -67,7 +68,7 @@ public class FileChangeMonitor extends FileAlterationListenerAdaptor{
 	
 	public static void main(String[] args) {
 		// finest 
-//		logger.setLevel(Level.ALL);
+		logger.setLevel(Level.ALL);
 		logger.finest( "INST.getAllLoadedClasses()==");   
 		
 		logger.finest( File.class.getName() );
@@ -98,5 +99,5 @@ public class FileChangeMonitor extends FileAlterationListenerAdaptor{
       is.read(bt);
       is.close();
       return  bt;
-  }   
+  }
 }

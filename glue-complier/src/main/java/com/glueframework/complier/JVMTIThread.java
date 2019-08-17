@@ -1,4 +1,4 @@
-package com.glueframework.test.agent;
+package com.glueframework.complier;
 
 import java.io.IOException;
 import java.util.List;
@@ -10,22 +10,21 @@ import com.sun.tools.attach.AttachNotSupportedException;
 import com.sun.tools.attach.VirtualMachine;
 import com.sun.tools.attach.VirtualMachineDescriptor;
 import com.sun.tools.javac.util.StringUtils;
-
 import org.junit.Test;
 /**
  * @author Administrator
  * https://www.cnblogs.com/stateis0/p/9062201.html
  * 探秘 Java 热部署三（Java agent agentmain
  */
-public class JVMTIThread {
+public class JVMTIThread {  
 	public static void main(String[] args) throws IOException,
 			AttachNotSupportedException, AgentLoadException,
 			AgentInitializationException, InterruptedException {
 		
 		reload();
 		// 线程挂起。
-		suspend();// agent
-	}                                
+		suspend();
+	}    
 
 	public static void reload() throws AttachNotSupportedException,
 			IOException, AgentLoadException, AgentInitializationException {

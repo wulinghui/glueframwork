@@ -22,7 +22,7 @@ public class TestSampleLoader {
 //         .invoke(null, new Object[] { args });
         
         while (true) {  
-        	SampleLoader loader = new SampleLoader();  
+        	SampleLoader loader = new SampleLoader();
             Class<?> clazz = loader.loadClass("com.glueframework.boilerplate.javassist.Hello");  
             Method method = clazz.getMethod("say");  
             System.out.println(method.invoke( clazz.newInstance()) );  

@@ -10,5 +10,7 @@ public interface IJdtConvert {
 	IJdtConvert DEFAULT = new JdtConvertDefault();
 	String doHandle(File file);
 	public CompilationUnit getCreateCompilationUnit();
+	public CompilationUnit createCompilationUnit(String src);
+	public String doHandle(String src) ;
 }
      

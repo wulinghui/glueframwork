@@ -24,5 +24,24 @@ public  class  ClassTransform  implements ClassFileTransformer {
         HotAgent.clsnames.add(className);
         return  null;
     }
+ 
+    
+    
+//    @Override 
+//    public byte [] transform(ClassLoader paramClassLoader, String paramString, 
+//         Class<?> paramClass, ProtectionDomain paramProtectionDomain, 
+//         byte [] paramArrayOfByte) throws IllegalClassFormatException { 
+//        String className = paramString.replace("/", "."); 
+//        ClassLoader cl =  paramClassLoader ; //MyClassLoader.getInstance(); 
+//        if(className.equals("com.example.Test")){ 
+//            cl.defineReference(className, "com.example.Greeter"); 
+//            return cl.getByteCode(className); 
+//        }else if(className.equals("com.example.Greeter")){
+//            cl.redefineClass(className); 
+//            return cl.getByteCode(className); 
+//        } 
+//        return null; 
+//     }
+    
     
 }

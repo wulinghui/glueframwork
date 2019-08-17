@@ -1,4 +1,5 @@
 package com.glueframework.boilerplate.javassist;
+import java.io.IOException;
 import java.io.InputStream;
 
 import javassist.ClassClassPath;
@@ -27,7 +28,7 @@ public class SampleLoader extends ClassLoader {
     	ClassPool pool = new ClassPool( ClassPool.getDefault() );
         pool.appendSystemPath();
         pool.insertClassPath(new ClassClassPath(this.getClass()));
-//        pool.insertClassPath("./class"); // MyApp.class must be there.
+//      pool.insertClassPath("./class"); // MyApp.class must be there.
         pool.childFirstLookup = true;
         javassistLoader = new Loader();
         javassistLoader.setClassPool(pool);
@@ -49,10 +50,10 @@ public class SampleLoader extends ClassLoader {
     	StringBuilder sb =new StringBuilder();
         	try {
 				// *modify the CtClass object here*
-				InputStream is = null;
 				String internalName = name.replace(".", "/");
+				InputStream is = null;
 				is = this.getClass().getResourceAsStream("/" + internalName + ".class");
-				byte[] b = IOUtils.toByteArray(is);
+				byte[] b = handler(is,name,internalName , sb);
 				sb.append("internalName=");
 				sb.append(internalName);
 				return defineClass(name, b, 0, b.length);
@@ -72,8 +73,12 @@ public class SampleLoader extends ClassLoader {
 			}
 //        	URI uri = null;
 //        	URL url = uri.toURL();
-//        	InputStream openStream = url.openStream();
+//        	InputStream openStream = url.openStream();  
     }
+	protected byte[] handler(InputStream is,String name,String internalName , StringBuilder logSb) throws IOException {
+		logSb.append(" \t  SampleLoader  handler ok  \t ");
+		return IOUtils.toByteArray(is);
+	}
     
     public static void setDefaultContextClassLoaderOfCurrentThread(){
     	Thread currentThread = Thread.currentThread();

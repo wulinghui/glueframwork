@@ -1,14 +1,11 @@
 package com.glueframework.boilerplate.common;
 
 import java.io.File;
-import java.nio.file.Path;
-import java.nio.file.WatchEvent.Kind;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.jdt.core.IClassFile;
-import org.eclipse.jdt.core.ICompilationUnit;
 import org.eclipse.jdt.core.JavaCore;
 import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
@@ -34,16 +31,21 @@ public class JdtConvertDefault implements IJdtConvert {
 
 	@Override
 	public String doHandle(File file) {
+		String src = null;
 		try {
-			String src = FileUtils.readFileToString( file ,"UTF-8");
-			createCompilationUnit = createCompilationUnit(src);
-			for (ICompilationUnitHandle handle : handles) {
-				handle.doHandle( createCompilationUnit );
-			}
+			src = FileUtils.readFileToString( file ,"UTF-8");
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		//要解析的文件
+		return doHandle(src);
+	}
+
+	public String doHandle(String src) {
+		createCompilationUnit = createCompilationUnit(src);
+		for (ICompilationUnitHandle handle : handles) {
+			handle.doHandle( createCompilationUnit );
+		}
+		//要解析的文件,不符合java的ast规范的都去除掉。
 		return createCompilationUnit.getRoot().toString();
 	}
 	
@@ -66,12 +68,16 @@ public class JdtConvertDefault implements IJdtConvert {
 	}
 
 	public ASTParser createAstParser() {
+		/*
+		 * fdsafds
+		 */
 		ASTParser parser = ASTParser.newParser(AST.JLS8); //设置Java语言规范版本
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
-
+        String st , st2;
+        
         parser.setCompilerOptions(null);
         parser.setResolveBindings(true);     
-
+        ;;;;;;
         Map<String, String> compilerOptions = JavaCore.getOptions();
         compilerOptions.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_8); //设置Java语言版本
         compilerOptions.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_8);
