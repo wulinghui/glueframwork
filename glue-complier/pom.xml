@@ -45,10 +45,6 @@
    <artifactId>jdk.tools</artifactId>
 </dependency>
 
-<dependency>
-	<groupId>com.glueframework</groupId>
-    <artifactId>glue-agent</artifactId>
-</dependency>   
 
 </dependencies>
 </project>
