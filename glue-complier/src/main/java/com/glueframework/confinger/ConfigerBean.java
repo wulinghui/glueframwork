@@ -1,5 +1,7 @@
 package com.glueframework.confinger;
 
+import com.glueframework.commons.DBTools;
+
 /**
  * @author Administrator
  * 1. 数据库可以轻松实现分布式   url name pass
@@ -22,7 +24,9 @@ public class ConfigerBean extends ConfigerBeanSuper{
     
     select * from ConfigerBean where value like '%address%' 
 	 */
-	
+	static{
+		DBTools.getInstance().createTable(ConfigerBean.class);
+	}
 	
 	String key;  // person 
 	
