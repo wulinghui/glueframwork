@@ -31,9 +31,9 @@ public class JavassistDemo {
 			e.printStackTrace();
 		}
 	}
-	@Test
+	@Test 
     public  void hello() throws Exception {
-//        DebugClass.printAllMethod(cc);    
+//        DebugClass.printAllMethod(cc);      
         CtMethod m = cc.getDeclaredMethod("say");
         DebugClass.printAllMethod(m);  
         String src = "{ System.out.println(\"dsdasda.say():\"); }";

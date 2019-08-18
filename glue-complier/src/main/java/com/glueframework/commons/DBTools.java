@@ -29,12 +29,8 @@ public class DBTools {
 	public static DBTools getInstance(){
 		return TOOLS;
 	}
-	public static Boolean create(String tableName,List<String> items) throws SQLException {
-		JdbcDataSource ds = new JdbcDataSource();
-		 ds.setURL("jdbc:h2:D:/springboot/h2/test");
-		 ds.setUser("admin");
-		 ds.setPassword("");
-		 QueryRunner run = new QueryRunner(ds);
+	public  Boolean create(String tableName,List<String> items) throws SQLException {
+		QueryRunner run = getQueryRunner();
 		 StringBuilder sql = new StringBuilder();
          sql.append(" CREATE TABLE ");
          if (null!=tableName&&tableName.length()>0) {
@@ -59,17 +55,28 @@ public class DBTools {
 		}
       
     }
+	public QueryRunner getQueryRunner() {
+		JdbcDataSource ds = new JdbcDataSource();
+		 ds.setURL("jdbc:h2:D:/springboot/h2/test");
+		 ds.setUser("admin");
+		 ds.setPassword("");
+		 QueryRunner run = new QueryRunner(ds);
+		return run;
+	}
 	
 	
 	public boolean createTable(Class<?> clas){
-		List<Field> allFieldsList = FieldUtils.getAllFieldsList(clas);
+		return createTable(clas,clas.getSimpleName());
+	}
+	public boolean createTable(Class<?> clas,String tableName){
 		List<String> items=new ArrayList<String>();
+		List<Field> allFieldsList = FieldUtils.getAllFieldsList(clas);
 		for (Field field : allFieldsList) {
 			String fieldName = field.getName();
 			items.add(fieldName);
 		}
 		try {
-			create(clas.getSimpleName(),items);
+			create(tableName,items);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

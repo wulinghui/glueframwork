@@ -24,8 +24,11 @@ public class ConfigerBean extends ConfigerBeanSuper{
     
     select * from ConfigerBean where value like '%address%' 
 	 */
+	public final static String TABLE_NAME = "GLUE_CONFIGER";
+	public final static String TABLE_NAME_HISTORY = "GLUE_CONFIGER_HISTORY";
 	static{
-		DBTools.getInstance().createTable(ConfigerBean.class);
+		DBTools.getInstance().createTable(ConfigerBean.class , TABLE_NAME);
+		DBTools.getInstance().createTable(ConfigerBean.class , TABLE_NAME_HISTORY);
 	}
 	
 	String key;  // person 

@@ -17,7 +17,10 @@ import com.glueframework.log.LogMSG;
  * 1. 先通过getResourceAsStream()加载class
  * 2. 利用javassist.CtClass 转化.class
  * 3. 最后利用java.lang.ClassLoader加载。
+ * 4. 没有必要使用javassist框架。我们可以自己用反编译来实现。比他更NB
+@see #jd
  */
+@Deprecated
 public class SampleLoader extends ClassLoader {
 	protected static ILogger logger = LogMSG.getLogger();
     /* Call MyApp.main(). */
@@ -26,36 +29,40 @@ public class SampleLoader extends ClassLoader {
     
     private Loader javassistLoader;
     public SampleLoader()  {
+    	this(new Loader());
     	ClassPool pool = new ClassPool( ClassPool.getDefault() );
         pool.appendSystemPath();
         pool.insertClassPath(new ClassClassPath(this.getClass()));
 //      pool.insertClassPath("./class"); // MyApp.class must be there.
         pool.childFirstLookup = true;
-        javassistLoader = new Loader();
         javassistLoader.setClassPool(pool);
     }
     public SampleLoader(ClassPool pool) {
-    	javassistLoader = new Loader();
+    	this(new Loader());
         javassistLoader.setClassPool(pool);
 	}
     
 	public SampleLoader(Loader javassistLoader) {
-		super();
+		super(null);
 		this.javassistLoader = javassistLoader;
 	}
-	/* 
+	/*  
      * Finds a specified class.
      * The bytecode for that class can be modified.
      */
-    public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+    public Class findClass(String name) throws ClassNotFoundException {
+    	  
+    	StringBuilder sb =new StringBuilder();
+    	Class<?> c = 
+//    			null;
+    	super.findLoadedClass(name); 
     	
-    	StringBuilder sb =new StringBuilder(HOSTWARP_FLAG);
-    	sb.append('\t');
-    	// 不是支持热加载
-    	Class<?> c = null; 
-    	if( !"true".equals(HOSTWARP_FLAG)){
-    		c = super.findLoadedClass(name);
-    	}
+//    	sb.append(HOSTWARP_FLAG);
+//    	sb.append('\t');
+//    	// 不是支持热加载
+//    	if( !"true".equals(HOSTWARP_FLAG) && c ==null ){
+//    		
+//    	}   
     	
     	if( c ==null){   
     		try {
@@ -80,9 +87,9 @@ public class SampleLoader extends ClassLoader {
     			c =  javassistLoader.loadClass(name);
     		} 
     	}
-        	if (resolve) {
-				resolveClass(c);
-            }
+//        	if (resolve) {
+//				resolveClass(c);
+//            }
         	logger.debug( sb.toString() ); 
         	
 //        	URI uri = null;

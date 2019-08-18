@@ -19,16 +19,18 @@ public class TestSampleLoader {
 //        c.getDeclaredMethod("main", new Class[] { String[].class })
 //         .invoke(null, new Object[] { args });
 		
-        while (true) {       
-        	SampleLoader loader = new SampleLoader();
-        	SampleLoader.getSystemClassLoader();
+        while (true) {   
+        	ClassLoader loader = new SampleLoader(){};
+        	Thread.sleep(6000);  
         	String name = "com.glueframework.boilerplate.javassist.Hello";
-            Class<?> clazz =  Class.forName(name);  
-//					loader.loadClass(name);   
+            Class<?> clazz =  
+            		//Class.forName(name);  
+					loader.loadClass(name);   
             Method method = clazz.getMethod("say");  
             System.out.println(method.invoke( clazz.newInstance()) );  
             // 每隔3秒钟重新加载  
-            Thread.sleep(6000);  
+            //  
+//            new Hello().say();
         }
     }
 	
@@ -44,6 +46,7 @@ public class TestSampleLoader {
 	}
 	public static void main(String[] args)  throws Throwable {  
 		TestSampleLoader testSampleLoader = new TestSampleLoader();
+		System.out.println( TestSampleLoader.class.getClassLoader() );
 		testSampleLoader.classBefor();
 		testSampleLoader.main(); 
 	}
