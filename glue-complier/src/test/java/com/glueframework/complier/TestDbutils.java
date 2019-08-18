@@ -82,7 +82,8 @@ public class TestDbutils {
 	public void fomat() throws Exception{
 		QueryRunner run = new QueryRunner();
 		System.out.println(String.format("create table %s fsfdsfs ", "testTable"));
-		 run.execute(String.format("create table %s fsfdsfs (     )",  "testTable" , "vcxzv"));
+		 run.execute(String.format("create table %s fsfdsfs (     )",  "testTable" ,"vcxzv"));
+		 run.execute(String.format("create table %s fsfdsfs ", "testTable"), "");
 	}   
 	
 	 
