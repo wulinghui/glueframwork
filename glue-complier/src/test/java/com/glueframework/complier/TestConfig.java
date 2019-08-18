@@ -3,6 +3,8 @@ package com.glueframework.complier;
 
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.ConvertUtilsBean2;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
@@ -17,7 +19,7 @@ public class TestConfig {
 Configurations configs = new Configurations();
 		
 		try
-		{
+		{   
 		    //Configuration config = configs.properties(new File("database.properties"));
 		    // access configuration properties
 		  //  String dbHost = config.getString("database.host");
@@ -33,14 +35,16 @@ Configurations configs = new Configurations();
 	            System.out.println(propConfig.getBoolean("log4j.appender.LOGFILE.Append"));
 	            System.out.println(propConfig.getString("log4j.appender.CONSOLE.Target"));
 	           // System.out.println(propConfig.getString("test"));
+	            
 //	            BeanUtils.populate(bean, map);
+//	            ConvertUtils.
 		}
 		catch (ConfigurationException cex)
-		{
+		{  
 		   logger.info("出错了");
 		}
 	}
-	public static void main(String[] args) {
+	public static void main(String[] args) {    
 		new TestConfig().test();
 	}
 	

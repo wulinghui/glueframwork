@@ -63,7 +63,6 @@ public void setName(String name) {
 		System.out.println(invokeExactMethod);
 		System.out.println(invokeConstructor.getId());  
 		
-		
 	}
 
 	@Override

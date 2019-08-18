@@ -21,7 +21,8 @@ import com.glueframework.log.LogMSG;
 public class SampleLoader extends ClassLoader {
 	protected static ILogger logger = LogMSG.getLogger();
     /* Call MyApp.main(). */
-
+	
+	public static final String HOSTWARP_FLAG = System.getProperty(SampleLoader.class.getName(), "true"); 
     
     private Loader javassistLoader;
     public SampleLoader()  {
@@ -46,34 +47,48 @@ public class SampleLoader extends ClassLoader {
      * Finds a specified class.
      * The bytecode for that class can be modified.
      */
-    public Class loadClass(String name) throws ClassNotFoundException {
-    	StringBuilder sb =new StringBuilder();
-        	try {
-				// *modify the CtClass object here*
-				String internalName = name.replace(".", "/");
-				InputStream is = null;
-				is = this.getClass().getResourceAsStream("/" + internalName + ".class");
-				byte[] b = handler(is,name,internalName , sb);
-				sb.append("internalName=");
-				sb.append(internalName);
-				return defineClass(name, b, 0, b.length);
-			} catch (Exception e) {
+    public Class loadClass(String name, boolean resolve) throws ClassNotFoundException {
+    	
+    	StringBuilder sb =new StringBuilder(HOSTWARP_FLAG);
+    	sb.append('\t');
+    	// 不是支持热加载
+    	Class<?> c = null; 
+    	if( !"true".equals(HOSTWARP_FLAG)){
+    		c = super.findLoadedClass(name);
+    	}
+    	
+    	if( c ==null){   
+    		try {
+    			// *modify the CtClass object here*
+    			String internalName = name.replace(".", "/");
+    			InputStream is = null;
+    			is = this.getClass().getResourceAsStream("/" + internalName + ".class");
+    			byte[] b = handler(is,name,internalName , sb);
+    			sb.append("internalName=");
+    			sb.append(internalName);
+    			c = defineClass(name, b, 0, b.length);
+    		} catch (Exception e) {
 //				logger.warn(e);
-				sb.append("Exception=");
-				sb.append(e.getMessage());
-				sb.append("name=");
-				sb.append(name);
+    			sb.append("Exception=");
+    			sb.append(e.getMessage());
+    			sb.append("name=");
+    			sb.append(name);
 //					CtClass cc = pool.get(name);
 //					byte[] b = cc.toBytecode();
-					sb.append("=CtClass-convert=");
+    			sb.append("=CtClass-convert=");
 //					return cc.toClass();
-					return javassistLoader.loadClass(name);
-			} finally{ 
-				logger.debug( sb.toString() ); 
-			}
+    			c =  javassistLoader.loadClass(name);
+    		} 
+    	}
+        	if (resolve) {
+				resolveClass(c);
+            }
+        	logger.debug( sb.toString() ); 
+        	
 //        	URI uri = null;
 //        	URL url = uri.toURL();
 //        	InputStream openStream = url.openStream();  
+        	return c;
     }
 	protected byte[] handler(InputStream is,String name,String internalName , StringBuilder logSb) throws IOException {
 		logSb.append(" \t  SampleLoader  handler ok  \t ");

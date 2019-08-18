@@ -2,7 +2,7 @@ package com.glueframework.boilerplate.javassist;
 
 public class Hello{
 	static{
-		System.out.println("321312312");               
+		System.out.println("ddddddddddddfdsddccx");               
 	}
 	
 	

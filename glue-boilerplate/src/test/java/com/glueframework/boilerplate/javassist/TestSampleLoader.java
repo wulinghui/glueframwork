@@ -2,16 +2,14 @@ package com.glueframework.boilerplate.javassist;
 
 import java.lang.reflect.Method;
 
+import org.junit.Before;
 import org.junit.Test;
 
-import com.glueframework.common.util.CombinationClassLoader;
-
 public class TestSampleLoader {
-	@Test
+//	@Test
+	@Before
 	public void classBefor(){
-		SampleLoader.setDefaultContextClassLoaderOfCurrentThread();
-	}
-	static{
+		System.setProperty(SampleLoader.class.getName(), "true111111"); 
 		SampleLoader.setDefaultContextClassLoaderOfCurrentThread();
 	}
 	@Test 
@@ -20,10 +18,13 @@ public class TestSampleLoader {
 //        Class c = s.loadClass("MyApp");
 //        c.getDeclaredMethod("main", new Class[] { String[].class })
 //         .invoke(null, new Object[] { args });
-        
-        while (true) {  
+		
+        while (true) {       
         	SampleLoader loader = new SampleLoader();
-            Class<?> clazz = loader.loadClass("com.glueframework.boilerplate.javassist.Hello");  
+        	SampleLoader.getSystemClassLoader();
+        	String name = "com.glueframework.boilerplate.javassist.Hello";
+            Class<?> clazz =  Class.forName(name);  
+//					loader.loadClass(name);   
             Method method = clazz.getMethod("say");  
             System.out.println(method.invoke( clazz.newInstance()) );  
             // 每隔3秒钟重新加载  
@@ -41,8 +42,12 @@ public class TestSampleLoader {
             Thread.sleep(6000);   
         }
 	}
-	
-	public static void main(String[] args)  throws Throwable {       
+	public static void main(String[] args)  throws Throwable {  
+		TestSampleLoader testSampleLoader = new TestSampleLoader();
+		testSampleLoader.classBefor();
+		testSampleLoader.main(); 
+	}
+	public static void main3(String[] args)  throws Throwable {       
 		while (true) {  
 			Thread thread = new Thread(){
 				@Override

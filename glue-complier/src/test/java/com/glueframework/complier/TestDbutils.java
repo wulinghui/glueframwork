@@ -1,21 +1,9 @@
 package com.glueframework.complier;
 
 
-import static org.hamcrest.CoreMatchers.nullValue;
-
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
-import java.sql.Statement;
 import java.util.List;
 
-import javax.naming.Context;
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-
-import org.apache.commons.dbutils.DbUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanListHandler;
@@ -65,7 +53,8 @@ public class TestDbutils {
 		 ds.setUser("admin");
 		 ds.setPassword("");
 		 QueryRunner run = new QueryRunner(ds);
-
+//		 run.execute("create ? ..");
+		 
 		// Use the BeanListHandler implementation to convert all
 		// ResultSet rows into a List of Test JavaBeans.
 		ResultSetHandler<List<Test>> h = new BeanListHandler<Test>(Test.class);
@@ -89,4 +78,12 @@ public class TestDbutils {
 				*/
 				
 	}
+	@org.junit.Test
+	public void fomat() throws Exception{
+		QueryRunner run = new QueryRunner();
+		System.out.println(String.format("create table %s fsfdsfs ", "testTable"));
+		 run.execute(String.format("create table %s fsfdsfs (     )",  "testTable" , "vcxzv"));
+	}   
+	
+	 
 }
