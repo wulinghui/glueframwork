@@ -1,7 +1,10 @@
 package com.glueframework.confinger;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.apache.commons.collections.CollectionUtils;
+import org.apache.commons.collections.ListUtils;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.lang3.ClassUtils;
 
@@ -25,7 +28,7 @@ public final class ConfigerService {
 
 	public void add(String key  , ConfigerBeanSuper beanSuper){
 		// 先
-		ConfigerBean select = select(key);
+		Object select = select(key);
 		if(select == null ){
 			//  update  ...
 			QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
@@ -49,18 +52,29 @@ public final class ConfigerService {
 	public void update(String key , ConfigerBeanSuper beanSuper){
 		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
 		back(queryRunner);
-		// delete
+		// update
 		
 		ConfigerHandle handle = getHandle();
 		handle.update(beanSuper);
 	}
-	public ConfigerBean select(String key){
-		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
-		return null;
+	public Object select(String key){
+		List<Object> selectHistory = selectHistory(key ,ConfigerBean.TABLE_NAME);
+		return   CollectionUtils.isEmpty(selectHistory) ? null : selectHistory.get(0);
 	}
-	public List<ConfigerBean> selectHistory(String key){
+	public List<Object> selectHistory(String key ){
+		return selectHistory(key ,ConfigerBean.TABLE_NAME);
+	}
+	
+	protected List<Object> selectHistory(String key , String tableName){
 		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
-		return null;
+		//TODO  select * from GLUE_CONFIGER where key ......
+		ConfigerBean bean = null;
+		
+		ConfigerHandle handle = getHandle(bean);
+		List list = new ArrayList<>();
+		Object e = handle.to();
+		list.add(e)
+		return list;
 	}
 	protected void back(QueryRunner queryRunner) {
 		// insert into  TABLE_NAME_HISTORY
@@ -68,11 +82,15 @@ public final class ConfigerService {
 	
 	
 	protected ConfigerHandle getHandle() {
+		return getHandle(bean);
+	}
+	protected ConfigerHandle getHandle(ConfigerBean bean) {
 		ConfigerHandle handle = null;
 		try {
 			String flagClass = bean.getFlagClass();
 			handle = (ConfigerHandle) ClassUtils.getClass(flagClass, false).newInstance();
-			 handle.setService(this);
+//			handle.setService(this);
+			handle.setService(new ConfigerService(bean));
 		} catch (InstantiationException | IllegalAccessException
 				| ClassNotFoundException e) {
 			logger.debug(e);

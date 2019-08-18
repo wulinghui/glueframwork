@@ -18,11 +18,12 @@ public class ConfigerHandle {
 	public void update( ConfigerBeanSuper beanSuper){
 		
 	}
-
+	
+	
 	public ConfigerService getService() {
 		return service;
 	}
-
+	
 	public void setService(ConfigerService service) {
 		this.service = service;
 	}
