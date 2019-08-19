@@ -8,7 +8,6 @@ import org.apache.commons.io.IOUtils;
 
 import com.glueframework.boilerplate.common.IJdtConvert;
 import com.glueframework.boilerplate.common.JdCoreUtil;
-import com.glueframework.boilerplate.javassist.SampleLoader;
 import com.glueframework.common.util.CombinationClassLoader;
 import com.glueframework.commons.CompileTool;
 import com.glueframework.log.ILogger;

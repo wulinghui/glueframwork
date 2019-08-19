@@ -6,8 +6,7 @@ import org.junit.Test;
 
 import com.glueframework.boilerplate.common.FileChangeMonitor;
 import com.glueframework.boilerplate.common.JdtChangeMonitor;
-import com.glueframework.boilerplate.javassist.SampleLoader;
-import com.glueframework.complier.CompilerChangeMonitor;
+//import com.glueframework.boilerplate.javassist.SampleLoader;
 public class TestJdtChangeMonitor {
 	@After
 	public void sleep() throws InterruptedException{
@@ -32,7 +31,7 @@ public class TestJdtChangeMonitor {
 	
 	@Test
 	public void compilerChangeMonitor() throws Exception{
-		SampleLoader.setDefaultContextClassLoaderOfCurrentThread();
+		//SampleLoader.setDefaultContextClassLoaderOfCurrentThread();
 		CompilerChangeMonitor monitor = new CompilerChangeMonitor(new File(
 				"Z:\\Virtual-Machines-Files-Writer\\workpace\\glueframwork1\\glue-complier\\src\\test\\java"));
 		monitor.fileUpWather(); 

@@ -73,7 +73,7 @@ public final class ConfigerService {
 		ConfigerHandle handle = getHandle(bean);
 		List list = new ArrayList<>();
 		Object e = handle.to();
-		list.add(e)
+		list.add(e);
 		return list;
 	}
 	protected void back(QueryRunner queryRunner) {

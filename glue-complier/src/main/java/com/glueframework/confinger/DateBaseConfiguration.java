@@ -11,7 +11,7 @@ public class DateBaseConfiguration extends AbstractConfiguration {
 	@Override
 	protected void addPropertyDirect(String key, Object value) {
 		// TODO Auto-generated method stub
-		configerService.add(key, value);
+		//configerService.add(key, value);
 	}
 
 	@Override
