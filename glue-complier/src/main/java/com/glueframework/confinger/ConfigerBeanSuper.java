@@ -12,13 +12,13 @@ package com.glueframework.confinger;
  */
 public class ConfigerBeanSuper {
 	String version;
-	String  inner;
+	Object  inner;
 	
-	public String getInner() {
+	public Object getInner() {
 		return inner;
 	}
 
-	public void setInner(String inner) {
+	public void setInner(Object inner) {
 		this.inner = inner;
 	}
 

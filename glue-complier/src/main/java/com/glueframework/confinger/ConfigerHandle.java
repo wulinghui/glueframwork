@@ -1,30 +1,15 @@
 package com.glueframework.confinger;
 
 public class ConfigerHandle {
-	ConfigerService service;
 	
-	public Object to(){
-		service.getBean().getFlagValue();
-		return null;
-	}
-	
-	public void add(ConfigerBeanSuper beanSuper){
+	public Object to(String value){
 		
+		return value;
 	}
 	
-	public void delete( ConfigerBeanSuper beanSuper){
-		
-	}
-	public void update( ConfigerBeanSuper beanSuper){
-		
+	public String add(Object beanSuper){
+		return beanSuper.toString();
 	}
 	
-	
-	public ConfigerService getService() {
-		return service;
-	}
-	
-	public void setService(ConfigerService service) {
-		this.service = service;
-	}
+	public void delete(String key){}
 }

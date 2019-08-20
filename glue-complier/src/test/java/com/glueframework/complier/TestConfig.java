@@ -2,19 +2,23 @@ package com.glueframework.complier;
 
 
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.apache.commons.beanutils.ConvertUtils;
-import org.apache.commons.beanutils.ConvertUtilsBean2;
+import java.io.File;
+
 import org.apache.commons.configuration2.PropertiesConfiguration;
+import org.apache.commons.configuration2.SystemConfiguration;
 import org.apache.commons.configuration2.builder.FileBasedConfigurationBuilder;
+import org.apache.commons.configuration2.builder.combined.CombinedConfigurationBuilder;
 import org.apache.commons.configuration2.builder.fluent.Configurations;
+import org.apache.commons.configuration2.builder.fluent.Parameters;
 import org.apache.commons.configuration2.ex.ConfigurationException;
+import org.junit.Test;
 
 import com.glueframework.log.ILogger;
 import com.glueframework.log.LogMSG;
 
 public class TestConfig {
 	private static ILogger logger = LogMSG.getLogger();
+	@Test
 	public void test() {
 Configurations configs = new Configurations();
 		
@@ -44,8 +48,13 @@ Configurations configs = new Configurations();
 		   logger.info("出错了");
 		}
 	}
-	public static void main(String[] args) {    
-		new TestConfig().test();
+	@Test
+	public  void main() throws Exception {
+//		 Parameters params = new Parameters();
+//		 CombinedConfigurationBuilder builder =
+//		         new CombinedConfigurationBuilder().configure(params.fileBased()
+//		                 .setFile(new File("config.properties")));
+//		 PropertiesConfiguration config = builder.getConfiguration();
 	}
 	
 }

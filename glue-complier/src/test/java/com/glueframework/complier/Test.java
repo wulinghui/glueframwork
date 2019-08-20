@@ -4,7 +4,9 @@ import java.lang.reflect.InvocationTargetException;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
 
+
 import com.glueframework.common.lang.ConstructorUtils;
+import com.glueframework.confinger.ConfigerBean;
 
 public class Test {
 private Integer id;
@@ -48,6 +50,7 @@ public void setName(String name) {
 	this.name = name;
 }
 	public static void main(String[] args) throws Throwable, IllegalAccessException, InvocationTargetException {
+		/*
 		String className = "com.glueframework.complier.Test";
 		Test invokeConstructor = (Test) ConstructorUtils.invokeConstructor(className, 4 , "wode");
 		System.out.println(invokeConstructor);
@@ -61,7 +64,8 @@ public void setName(String name) {
 		System.out.println(invokeConstructor.getId());  
 		Object invokeExactMethod = MethodUtils.invokeExactMethod(invokeConstructor, methodName , 4);
 		System.out.println(invokeExactMethod);
-		System.out.println(invokeConstructor.getId());  
+		System.out.println(invokeConstructor.getId());  */
+		ConfigerBean configerBean=new ConfigerBean();
 		
 	}
 
