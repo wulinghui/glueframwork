@@ -11,23 +11,23 @@ package com.glueframework.confinger;
  * 6. 利用sql批量修改容易。
  */
 public class ConfigerBeanSuper {
-	String version;
-	Object  inner;
+	String _version;
+	Object  _inner;
 	
 	public Object getInner() {
-		return inner;
+		return _inner;
 	}
 
 	public void setInner(Object inner) {
-		this.inner = inner;
+		this._inner = inner;
 	}
 
 	public String getVersion() {
-		return version;
+		return _version;
 	}
 
 	public void setVersion(String version) {
-		this.version = version;
+		this._version = version;
 	}
 	
 }

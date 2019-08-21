@@ -1,5 +1,6 @@
 package com.glueframework.confinger;
 
+import com.glueframework.common.lang.Constant;
 import com.glueframework.commons.DBTools;
 
 /**
@@ -27,69 +28,76 @@ public class ConfigerBean extends ConfigerBeanSuper{
 //	public final static String TABLE_NAME = "GLUE_CONFIGER";
 //	public final static String TABLE_NAME_HISTORY = "GLUE_CONFIGER_HISTORY";
 	static{
-		DBTools.getInstance().createTable(ConfigerBean.class , "GLUE_CONFIGER");
-		DBTools.getInstance().createTable(ConfigerBean.class , "GLUE_CONFIGER_HISTORY");
+		String tableName = "GLUE_CONFIGER";
+		String tableName2 = "GLUE_CONFIGER_HISTORY";
+		DBTools instance = DBTools.getInstance();
+		if( Constant.isDevEnvironment()) {
+			instance.drop(tableName);
+			instance.drop(tableName2);
+		}
+		instance.createTable(ConfigerBean.class , tableName);
+		instance.createTable(ConfigerBean.class , tableName2);
 	}
 	
-	String key;  // person 
+	String _key;  // person 
 	
-	String environment;
+	String _environment;
 
-	String groupId;
+	String _groupId;
 	
-	String artifactId;
+	String _artifactId;
 
-	final String createTime = "" ;
+	final String _create_Time = "" ;
 	
-	String updateTime = "" ;
+	String update_Time = "" ;
 	//  对应处理value的handles   配置项，他可能在运行时可以修改，运行时不可以修改 ，压根就不可修改 ，修改校验
-	String flagClass = "com.glueframework.confinger.ConfigerHandle";
+	String flag_Class = "com.glueframework.confinger.ConfigerHandle";
 	//   这个是给flagValue的值。
-	String flagValue;
+	String flag_Value;
 	public String getKey() {
-		return key;
+		return _key;
 	}
 	public void setKey(String key) {
-		this.key = key;
+		this._key = key;
 	}
 	public String getEnvironment() {
-		return environment;
+		return _environment;
 	}
 	public void setEnvironment(String environment) {
-		this.environment = environment;
+		this._environment = environment;
 	}
 	public String getGroupId() {
-		return groupId;
+		return _groupId;
 	}
 	public void setGroupId(String groupId) {
-		this.groupId = groupId;
+		this._groupId = groupId;
 	}
 	public String getArtifactId() {
-		return artifactId;
+		return _artifactId;
 	}
 	public void setArtifactId(String artifactId) {
-		this.artifactId = artifactId;
+		this._artifactId = artifactId;
 	}
 	public String getCreateTime() {
-		return createTime;
+		return _create_Time;
 	}
 	public String getUpdateTime() {
-		return updateTime;
+		return update_Time;
 	}
 	public void setUpdateTime(String updateTime) {
-		this.updateTime = updateTime;
+		this.update_Time = updateTime;
 	}
 	public String getFlagClass() {
-		return flagClass;
+		return flag_Class;
 	}
 	public void setFlagClass(String flagClass) {
-		this.flagClass = flagClass;
+		this.flag_Class = flagClass;
 	}
 	public String getFlagValue() {
-		return flagValue;
+		return flag_Value;
 	}
 	public void setFlagValue(String flagValue) {
-		this.flagValue = flagValue;
+		this.flag_Value = flagValue;
 	}
 	
 	

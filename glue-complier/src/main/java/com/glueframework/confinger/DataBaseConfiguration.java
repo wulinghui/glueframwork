@@ -2,6 +2,7 @@ package com.glueframework.confinger;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 
@@ -9,13 +10,15 @@ import org.apache.commons.configuration2.AbstractConfiguration;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.lang3.ClassUtils;
 
+import com.glueframework.common.lang.Constant;
 import com.glueframework.commons.DBTools;
+import com.glueframework.commons.DateTools;
 import com.glueframework.log.ILogger;
 import com.glueframework.log.LogMSG;
 
 public class DataBaseConfiguration extends AbstractConfiguration {
 	private static ILogger logger = LogMSG.getLogger();
-	public final static String environment = SystemOneConfiguration.SINGLE.getString(DataBaseConfiguration.class);
+	public final static String environment = Constant.environment;//SystemOneConfiguration.SINGLE.getString(DataBaseConfiguration.class);
 
 	public final String groupId;
 	
@@ -35,13 +38,21 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 				QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
 				ConfigerHandle handle = getHandle(bean.getFlagClass());
 				String inner = handle.add(bean.getInner());
+				String createTime=bean.getCreateTime();
+				String updateTime="";
+				String flagValue=bean.getFlagValue();
+				String version=bean.getVersion();
+				String flagClass=    bean.getFlagClass();//"com.glueframework.confinger.ConfigerHandle";
 				try { 
+					updateTime = DateTools.date2Str(new Date(), DateTools.DATE_FORMAT_SEC);
 					// version -- select history max()
-					queryRunner.execute("insert into GLUE_CONFIGER values(key , inner)", key ,inner);
+					queryRunner.update("insert into GLUE_CONFIGER values(?,?,?,?,"
+							+ "?,?,?,?,?,?)", key ,environment
+							,groupId,artifactId,createTime,updateTime,flagClass,flagValue,version,inner);
 					
-				} catch (SQLException e) {
+				} catch (Exception e) {
 					
-					e.printStackTrace();
+					logger.debug(e);
 				}
 				// add sql 
 //			ConfigerBean.TABLE_NAME;
@@ -54,17 +65,13 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 
 	@Override
 	protected void clearPropertyDirect(String key) {
-
 		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
-		
-		//	back
-		
-		// select * from  .....   Inner
 		ConfigerBean bean = null;
-		// TODO Auto-generated method stub  
-		// delete 
 		try {
-			queryRunner.execute("insert into name value(key , inner)", key ,bean.getInner().toString());
+		//	back
+			queryRunner.execute("insert into GLUE_CONFIGER_HISTORY select * from GLUE_CONFIGER where _key="+key
+					+ " and _environment="+environment+ " and _groupId="+groupId+ " and _artifactId="+artifactId);
+			queryRunner.execute("delete from GLUE_CONFIGER where ");
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

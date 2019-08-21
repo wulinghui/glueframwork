@@ -3,7 +3,6 @@ package com.glueframework.confinger;
 public class ConfigerHandle {
 	
 	public Object to(String value){
-		
 		return value;
 	}
 	

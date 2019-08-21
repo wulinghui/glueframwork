@@ -29,6 +29,9 @@ public class DBTools {
 	public static DBTools getInstance(){
 		return TOOLS;
 	}
+	public boolean drop(String tableName) {
+		return true;
+	}
 	public  Boolean create(String tableName,List<String> items) throws SQLException {
 		QueryRunner run = getQueryRunner();
 		 StringBuilder sql = new StringBuilder();
@@ -43,17 +46,18 @@ public class DBTools {
                  if(i==items.size()-1)
                 	 sql.append(" VARCHAR(5000) )");
                  else
-                 sql.append(" VARCHAR(5000), ");
+                	 sql.append(" VARCHAR(5000), ");
              }
          }
          try {
         	   run.execute(sql.toString());
         	   return true;
 		} catch (Exception e) {
-			logger.debug(e+"创建表失败或表已存在");
+			logger.debug(e);
 			return false;
-		}
-      
+		}finally {
+			logger.debug("create-table-sql=[{}]",sql);
+		}  
     }
 	public QueryRunner getQueryRunner() {
 		JdbcDataSource ds = new JdbcDataSource();
