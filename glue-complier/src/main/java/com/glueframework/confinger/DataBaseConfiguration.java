@@ -44,7 +44,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	
 
 	@Override
-	protected void addPropertyDirect(String key, Object value) {
+	public  void addPropertyDirect(String key, Object value) {
 		if( value instanceof ConfigerBean) {
 			ConfigerBean bean = (ConfigerBean) value;
 			if( ! containsKeyInternal(key) ){

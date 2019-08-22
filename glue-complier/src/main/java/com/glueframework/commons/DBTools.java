@@ -30,6 +30,13 @@ public class DBTools {
 		return TOOLS;
 	}
 	public boolean drop(String tableName) {
+		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
+		try {
+			queryRunner.execute("drop table if exists "+tableName);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		return true;
 	}
 	public  Boolean create(String tableName,List<String> items) throws SQLException {

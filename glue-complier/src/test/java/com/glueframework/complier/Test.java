@@ -1,12 +1,14 @@
 package com.glueframework.complier;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.Date;
 
 import org.apache.commons.lang3.reflect.MethodUtils;
 
 
 import com.glueframework.common.lang.ConstructorUtils;
 import com.glueframework.confinger.ConfigerBean;
+import com.glueframework.confinger.DataBaseConfiguration;
 
 public class Test {
 private Integer id;
@@ -49,6 +51,23 @@ public String getName() {
 public void setName(String name) {
 	this.name = name;
 }
+
+
+
+@org.junit.Test
+public void testjuit() {
+	DataBaseConfiguration dataBaseConfiguration=new DataBaseConfiguration("长软", "知识产权");
+	ConfigerBean configerBean=new ConfigerBean();
+	configerBean.setFlagClass("");
+	configerBean.setFlagValue("flag");
+	configerBean.setUpdateTime("2017-08-24");
+	Entity entity=new Entity();
+	entity.setNameString("小米");
+	entity.setTimeDate(new Date());
+	configerBean.setInner(entity);
+	configerBean.setVersion("1.111");
+	dataBaseConfiguration.addPropertyDirect("key", configerBean);
+}
 	public static void main(String[] args) throws Throwable, IllegalAccessException, InvocationTargetException {
 		/*
 		String className = "com.glueframework.complier.Test";
@@ -65,8 +84,17 @@ public void setName(String name) {
 		Object invokeExactMethod = MethodUtils.invokeExactMethod(invokeConstructor, methodName , 4);
 		System.out.println(invokeExactMethod);
 		System.out.println(invokeConstructor.getId());  */
+		DataBaseConfiguration dataBaseConfiguration=new DataBaseConfiguration("长软", "知识产权");
 		ConfigerBean configerBean=new ConfigerBean();
-		
+		configerBean.setFlagClass("com.glueframework.confinger.ConfigerHandle");
+		configerBean.setFlagValue("flag");
+		configerBean.setUpdateTime("2017-08-24");
+		Entity entity=new Entity();
+		entity.setNameString("小米");
+		entity.setTimeDate(new Date());
+		configerBean.setInner(entity);
+		configerBean.setVersion("1.111");
+		dataBaseConfiguration.addPropertyDirect("key", configerBean);
 	}
 
 	@Override
