@@ -78,7 +78,7 @@ public class JdtTest {
     public void test1() {
         ASTParser parser = ASTParser.newParser(AST.JLS4); //设置Java语言规范版本
         parser.setKind(ASTParser.K_COMPILATION_UNIT);
-
+        
         Map<String, String> compilerOptions = JavaCore.getOptions();
         compilerOptions.put(JavaCore.COMPILER_COMPLIANCE, JavaCore.VERSION_1_7); //设置Java语言版本
         compilerOptions.put(JavaCore.COMPILER_CODEGEN_TARGET_PLATFORM, JavaCore.VERSION_1_7);
@@ -246,12 +246,13 @@ public class JdtTest {
         literal.setLiteralValue(" world");
         infixExpression.setRightOperand(literal);
         methodInvocation.arguments().add(infixExpression);
+        ast.newExportsStatement();
         ExpressionStatement expressionStatement = ast.newExpressionStatement(methodInvocation);
         block.statements().add(expressionStatement);
         methodDeclaration.setBody(block);
         type.bodyDeclarations().add(methodDeclaration);
         unit.types().add(type);
-
+        System.out.println(type); 
     }
 
     @Test
@@ -276,17 +277,14 @@ public class JdtTest {
         ////
         // creation of ASTRewrite //创建astrewrite
         ASTRewrite rewrite = ASTRewrite.create(astRoot.getAST());
-
         // description of the change  //变更说明
         SimpleName oldName = ((TypeDeclaration)astRoot.types().get(0)).getName();
         SimpleName newName = astRoot.getAST().newSimpleName("Y");
         rewrite.replace(oldName, newName, null);
-
         // computation of the text edits  //文本编辑的计算
         TextEdit edits = rewrite.rewriteAST(document, cu.getJavaProject().getOptions(true));
-
         //////////////////////////////////////////
-        // 2.
+        // 2.      
         /////////////////////////////////////////
         // start record of the modifications//修改的开始记录
 /*

@@ -9,6 +9,8 @@ import org.eclipse.jdt.core.dom.Block;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 import org.eclipse.jdt.core.dom.FieldDeclaration;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
+import org.eclipse.jdt.core.dom.Name;
+import org.eclipse.jdt.core.dom.SimpleType;
 import org.eclipse.jdt.core.dom.Type;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 import org.eclipse.jdt.core.dom.VariableDeclarationStatement;
@@ -31,20 +33,50 @@ public class TestJdtConvertDefault extends JdtConvertDefault{
 	public void testCreateCompilationUnit() throws Exception {
 		 DebugClass.printAllGetMethod(createCompilationUnit);
 	}
+	
+	public TypeDeclaration getTypeDeclaration() {
+		List types = createCompilationUnit.types();
+		TypeDeclaration classType = (TypeDeclaration) types.get(0);
+		
+		return classType;
+	}
+	
+	@Test
+	public void superInterfaces() throws Exception {
+		List superInterfaceTypes = getTypeDeclaration().superInterfaceTypes();
+		List<SimpleType> list = superInterfaceTypes;
+		Object object = list.get(0);
+		DebugClass.printNoAgeMethod(object);	  
+	}
+	@Test
+	public void getSuperclass() throws Exception {
+		Type superclassType = getTypeDeclaration().getSuperclassType();
+		DebugClass.printNoAgeMethod(superclassType);	
+	}
 	@Test
 	public void testUpdateNew() throws Exception {
 		
 		
 		List types = createCompilationUnit.types();
+		TypeDeclaration classType = (TypeDeclaration) types.get(0);
 		
 		System.out.println(types.size());  
-		TypeDeclaration classType = (TypeDeclaration) types.get(0);
+		System.out.println( createCompilationUnit.getPackage().getName() );
+		System.out.println( classType.getName() );
 		DebugClass.printNoAgeMethod(classType.getBodyDeclarationsProperty());	
 		types = classType.bodyDeclarations();
-		for (Object object : types) {   
+		for (Object object : types) {
 			DebugClass.printNoAgeMethod(object);	
 			System.out.println("======================"); 
 		}
+	}
+	
+	@Test
+	public void imports() throws Exception {
+		
+		List imports = createCompilationUnit.imports();
+			DebugClass.printNoAgeMethod(imports.get(0));	
+			System.out.println("======================"); 
 	}
 	@Test
 	public void testUpdateNew1() throws Exception {
@@ -54,6 +86,7 @@ public class TestJdtConvertDefault extends JdtConvertDefault{
 		System.out.println(types.size());  
 		// 类为TypeDeclaration  。   TypeDeclaration 为  ClassDeclaration  或者 InterfaceDeclaration
 		TypeDeclaration classType = (TypeDeclaration) types.get(0);
+		
 		//     获得Body                                          
 //		DebugClass.printNoAgeMethod(classType.getBodyDeclarationsProperty());	
 		// 这里执行了删除操作，就没了
@@ -63,6 +96,7 @@ public class TestJdtConvertDefault extends JdtConvertDefault{
 		for (Object object : types) {
 			if(object instanceof FieldDeclaration){
 				FieldDeclaration fieldDeclaration = (FieldDeclaration) object;
+				fieldDeclaration.delete();
 				// 这里也不能获取类的完全限定名。所以需要自己定义。
 				Type type = fieldDeclaration.getType();
 //				DebugClass.printNoAgeMethod(type);

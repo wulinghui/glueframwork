@@ -11,7 +11,7 @@ import org.eclipse.jdt.core.dom.AST;
 import org.eclipse.jdt.core.dom.ASTParser;
 import org.eclipse.jdt.core.dom.CompilationUnit;
 
-public class JdtConvertDefault implements IJdtConvert {
+public class JdtConvertDefault extends Object implements IJdtConvert {
 	ICompilationUnitHandle [] handles = null;
 	CompilationUnit createCompilationUnit = null;
 	
@@ -61,7 +61,6 @@ public class JdtConvertDefault implements IJdtConvert {
 //            e.printStackTrace();
 //        }
 //        parser.setSource(source );
-
         parser.setSource(src.toCharArray());
         CompilationUnit cu = (CompilationUnit) parser.createAST(null);  //下个断点可以看看cu的types成员就是整个语法树
         return cu;

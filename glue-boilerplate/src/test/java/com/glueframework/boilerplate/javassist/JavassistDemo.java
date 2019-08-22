@@ -34,7 +34,12 @@ public class JavassistDemo {
 	@Test 
     public  void hello() throws Exception {
 //        DebugClass.printAllMethod(cc);      
+		cc.getMethods();
         CtMethod m = cc.getDeclaredMethod("say");
+         CtField field = cc.getField("");
+         
+//         field.equals(obj);
+         
         DebugClass.printAllMethod(m);  
         String src = "{ System.out.println(\"dsdasda.say():\"); }";
         String file = this.getClass().getResource("").getFile();
@@ -45,7 +50,7 @@ public class JavassistDemo {
         Class c = cc.toClass();
         Hello h = (Hello)c.newInstance();
         h.say();
-        new Hello().say(); 
+        new Hello().say();
     }
 	@Test
     public  void writeFile() throws Exception {

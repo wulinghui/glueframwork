@@ -18,16 +18,30 @@ import com.glueframework.log.LogMSG;
 
 public class DataBaseConfiguration extends AbstractConfiguration {
 	private static ILogger logger = LogMSG.getLogger();
-	public final static String environment = Constant.environment;//SystemOneConfiguration.SINGLE.getString(DataBaseConfiguration.class);
+	public final String environment ;//= Constant.environment;//SystemOneConfiguration.SINGLE.getString(DataBaseConfiguration.class);
 
 	public final String groupId;
 	
 	public final String artifactId;
 	
-	public DataBaseConfiguration( String groupId, String artifactId) {
+	/**
+	 * @param environment
+	 * @param groupId
+	 * @param artifactId
+	 */
+	public DataBaseConfiguration(String environment, String groupId,
+			String artifactId) {
+		super();
+		this.environment = environment;
 		this.groupId = groupId;
 		this.artifactId = artifactId;
 	}
+
+
+	public DataBaseConfiguration( String groupId, String artifactId) {
+		this(Constant.environment,groupId,artifactId);
+	}
+	
 
 	@Override
 	protected void addPropertyDirect(String key, Object value) {
