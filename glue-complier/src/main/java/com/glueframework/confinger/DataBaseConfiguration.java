@@ -83,9 +83,10 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 		ConfigerBean bean = null;
 		try {
 		//	back
-			queryRunner.execute("insert into GLUE_CONFIGER_HISTORY select * from GLUE_CONFIGER where _key="+key
-					+ " and _environment="+environment+ " and _groupId="+groupId+ " and _artifactId="+artifactId);
-			queryRunner.execute("delete from GLUE_CONFIGER where ");
+			queryRunner.update("insert into GLUE_CONFIGER_HISTORY select * from GLUE_CONFIGER where _key=?"
+					+ " and _environment=? and _groupId=? and _artifactId=?",key,environment,groupId,artifactId);
+			queryRunner.update("delete from GLUE_CONFIGER where _key=?"
+			+ " and _environment=? and _groupId=? and _artifactId=?",key,environment,groupId,artifactId);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
