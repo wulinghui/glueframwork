@@ -152,7 +152,10 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 				new DataBaseConfiguration("com.glue", "test");
 		String key = "shuzu";
 		// add
-		configuration.addProperty(key, "123456");
+		ConfigerBean bean = new ConfigerBean();
+		String value = "123456";
+		bean.setInner(value);
+		configuration.addProperty(key, value);
 		// select
 		int int1 = configuration.getInt(key);
 		System.out.println("========"+int1);
