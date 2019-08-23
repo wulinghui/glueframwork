@@ -44,7 +44,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	
 
 	@Override
-	public  void addPropertyDirect(String key, Object value) {
+	protected  void addPropertyDirect(String key, Object value) {
 		if( value instanceof ConfigerBean) {
 			ConfigerBean bean = (ConfigerBean) value;
 			if( ! containsKeyInternal(key) ){
@@ -143,5 +143,23 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 		}
 		return handle;
 	}
-
+	/**
+	 * 测试通过即ok。
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		DataBaseConfiguration configuration =
+				new DataBaseConfiguration("com.glue", "test");
+		String key = "shuzu";
+		// add
+		configuration.addProperty(key, "123456");
+		// select
+		int int1 = configuration.getInt(key);
+		System.out.println("========"+int1);
+		// clear
+		configuration.clearProperty(key);
+		// select
+		int1 = configuration.getInt(key);
+		System.out.println("========"+int1);
+	}
 }
