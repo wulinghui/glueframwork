@@ -1,5 +1,6 @@
 package com.glueframework.confinger;
 
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -8,6 +9,9 @@ import java.util.List;
 
 import org.apache.commons.configuration2.AbstractConfiguration;
 import org.apache.commons.dbutils.QueryRunner;
+import org.apache.commons.dbutils.ResultSetHandler;
+import org.apache.commons.dbutils.handlers.BeanHandler;
+import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang3.ClassUtils;
 
 import com.glueframework.common.lang.Constant;
@@ -44,7 +48,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	
 
 	@Override
-	protected  void addPropertyDirect(String key, Object value) {
+	public  void addPropertyDirect(String key, Object value) {
 		if( value instanceof ConfigerBean) {
 			ConfigerBean bean = (ConfigerBean) value;
 			if( ! containsKeyInternal(key) ){
@@ -123,7 +127,15 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
 		//TODO  select * from GLUE_CONFIGER where key ......
 		ConfigerBean bean = null;
-		
+		String[] arraysStrings= {environment,groupId,artifactId}; 
+		ResultSetHandler<ConfigerBean> hand=new BeanHandler<ConfigerBean>(ConfigerBean.class);
+		try {
+			bean=queryRunner.query("select * from GLUE_CONFIGER where _key=? and "
+					+ " and _environment=? and _groupId=? and _artifactId=?", hand,arraysStrings);
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		ConfigerHandle handle = getHandle(bean.getFlagClass());
 		List list = new ArrayList<>();
 		Object e = handle.to(bean.getInner().toString());
