@@ -155,7 +155,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 		ConfigerBean bean = new ConfigerBean();
 		String value = "123456";
 		bean.setInner(value);
-		configuration.addProperty(key, value);
+		configuration.addProperty(key, bean);
 		// select
 		int int1 = configuration.getInt(key);
 		System.out.println("========"+int1);
