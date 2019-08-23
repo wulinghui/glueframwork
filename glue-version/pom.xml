@@ -11,8 +11,14 @@
 	</properties>
   
   
-  <dependencyManagement>
+  <dependencyManagement> 
 	 <dependencies>
+	  
+	<dependency>
+    <groupId>com.github.javaparser</groupId>
+    <artifactId>javaparser-symbol-solver-core</artifactId>
+    <version>3.14.11</version>
+</dependency>      
 	 
 	 <dependency>
    <groupId>jdk.tools</groupId>
