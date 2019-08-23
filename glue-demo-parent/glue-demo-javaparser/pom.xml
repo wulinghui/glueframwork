@@ -8,11 +8,15 @@
   <artifactId>glue-demo-javaparser</artifactId>
   
   
-  	<dependencies>
+  	<dependencies> 
 <dependency>
     <groupId>com.github.javaparser</groupId>
     <artifactId>javaparser-symbol-solver-core</artifactId>
 </dependency>
+<dependency>
+	<groupId>com.glueframework</groupId>
+    <artifactId>glue-commons</artifactId>
+</dependency> 
 	</dependencies>
 	
   <build>
