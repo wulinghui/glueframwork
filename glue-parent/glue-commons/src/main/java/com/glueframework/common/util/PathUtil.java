@@ -3,7 +3,7 @@ package com.glueframework.common.util;
 import java.io.File;
 import java.io.IOException;
 
-public class PathClass {
+public class PathUtil {
 	public static String getClassPath(Class<?> c) {
 		return Thread.currentThread().getContextClassLoader().getResource("").getFile();//	/E:/workSpace/Util5/bin/test/
 	}

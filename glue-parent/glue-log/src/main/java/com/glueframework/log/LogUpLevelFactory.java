@@ -1,7 +1,5 @@
 package com.glueframework.log;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * @author wulinghui
@@ -19,11 +17,7 @@ public class LogUpLevelFactory implements ILogFactory {
 	}
 	@Override
 	public ILogger newLogger() {
-		Logger logger = getLogger();
-		return new LogUUID( new LogUpLevel(new LogBase(logger)) );
-	}
-	protected Logger getLogger() {
-		return LoggerFactory.getLogger(getName());
+		return new LogUUID( new LogUpLevel(new LogBase()) );
 	}
 	protected String getName() {
 		return Thread.currentThread().getStackTrace()[who].getClassName();

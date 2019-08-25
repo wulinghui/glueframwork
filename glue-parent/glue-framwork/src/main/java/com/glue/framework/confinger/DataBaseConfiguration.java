@@ -7,6 +7,7 @@ import java.util.Iterator;
 import java.util.List;
 
 import org.apache.commons.configuration2.AbstractConfiguration;
+import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.lang3.ClassUtils;
 
 import com.glue.framework.common.lang.Constant;

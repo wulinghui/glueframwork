@@ -86,7 +86,7 @@ public class JdtLoader extends ClassLoader{
 	protected byte[] handler(InputStream is,String name,String internalName , StringBuilder logSb)
  throws Exception {
 		byte[] byteArray = null;
-		File file = new File( Constant.class_load_tmp_dir , internalName+".class");
+		File file = new File( Constant.CLASS_LOAD_TMP_DIR_VALUE , internalName+".class");
 		if( file.exists()  && file.isFile() ){
 			logSb.append(" \t  no decompile handler \t  ");
 			byteArray = FileUtils.readFileToByteArray(file);

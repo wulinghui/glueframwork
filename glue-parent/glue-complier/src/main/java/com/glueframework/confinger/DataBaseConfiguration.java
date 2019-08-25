@@ -43,7 +43,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 
 
 	public DataBaseConfiguration( String groupId, String artifactId) {
-		this(Constant.environment,groupId,artifactId);
+		this(Constant.ENVIRONMENT_VALUE,groupId,artifactId);
 	}
 	
 

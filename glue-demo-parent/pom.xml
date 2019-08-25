@@ -10,6 +10,7 @@
   <description>提供技术选型和写demo，网上的选型都不如自己写个demo</description>
   <modules>
   	<module>glue-demo-javaparser</module>
+  	<module>glue-demo-asm</module>
   </modules>
   
   	<dependencies>
@@ -17,7 +18,14 @@
     <groupId>junit</groupId>
     <artifactId>junit</artifactId> 
 </dependency>
-
+<dependency>
+	<groupId>com.glueframework</groupId>
+    <artifactId>glue-log</artifactId>
+</dependency>
+<dependency>
+	<groupId>com.glueframework</groupId>
+    <artifactId>glue-commons</artifactId>
+</dependency>
 
 		<dependency>
     <groupId>commons-io</groupId>

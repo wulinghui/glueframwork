@@ -35,13 +35,8 @@
 			<artifactId>org.eclipse.jdt.core</artifactId>
 		</dependency>
 <dependency>
-    <groupId>org.javassist</groupId>
-    <artifactId>javassist</artifactId>
-</dependency>
-<dependency>
     <groupId>org.org.jd</groupId> 
     <artifactId>jd-core</artifactId>
-    <version>1.0.6</version>       
 </dependency>
 <dependency>
 	<groupId>com.glueframework</groupId>

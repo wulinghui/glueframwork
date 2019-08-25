@@ -1,4 +1,4 @@
-package com.glueframework.confinger;
+package com.glueframework.common.lang;
 
 import org.apache.commons.configuration2.SystemConfiguration;
 
@@ -18,8 +18,8 @@ public class SystemOneConfiguration extends SystemConfiguration {
      * @param key
      * @return
      */
-    public String getString(Class<?> key)
+    public String getString(Class<?> key,String def)
     {
-        return getString(key.getName());
+        return getString(key.getName() , def);
     }
 }
