@@ -27,6 +27,5 @@
 		<module>glue-complier</module>
 		<module>glue-commons</module>
 		<module>glue-boilerplate</module>
-		<module>glue-framwork</module>
 	</modules>
 </project>
