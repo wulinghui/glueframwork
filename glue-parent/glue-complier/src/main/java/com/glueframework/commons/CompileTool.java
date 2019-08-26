@@ -29,7 +29,7 @@ public class CompileTool {
 		public CompileTool(String className) {
 			super();
 			this.className = className;
-			this.outDir = Constant.class_load_tmp_dir;
+			this.outDir = Constant.CLASS_LOAD_TMP_DIR_VALUE;
 		}
 		
 	

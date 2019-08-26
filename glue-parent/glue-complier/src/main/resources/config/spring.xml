@@ -5,8 +5,10 @@
     
     <!-- 添加 Address 和 Person -->
     <bean id="address" class="com.spring.xmlBean.Address"></bean>
-    
-    <bean id="person" class="com.spring.xmlBean.Person">
+    <bean >
+    	
+    </bean>
+    <bean id="person" class="com.spring.xmlBean.Person" >
     	
     </bean>
 </beans>

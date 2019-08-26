@@ -1,5 +1,6 @@
 package com.glueframework.log;
 
+import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.LogRecord;
 
@@ -11,37 +12,21 @@ import java.util.logging.LogRecord;
 public class LogBase implements ILogger {
 	
 	private String name;
-	private String SUPER;
 	private String SELF ;
 	java.util.logging.Logger logger  = null;
 	
 	public LogBase() {
-		this( LogBase.class );
+		this(  LogBase.class );
 	}
 	
 	public java.util.logging.Logger getLogger() {
 		return logger;
 	}
 
-	public LogBase(String name) {
-		this(name, LogBase.class);
-	}
-	
-	public LogBase( Class<?> sELF) {
-		this(  StackTraceUtil.getUpper(sELF.getName()).getClassName()  ,  sELF);
-	}
-	public LogBase(String name, Class<?> sELF) {
-		this(name, Object.class, LogBase.class);
-	}
-	/**
-	 * @param name
-	 * @param sUPER
-	 * @param sELF
-	 */
-	public LogBase(String name, Class<?> sUPER, Class<?> sELF) {
-		this.name = name;
-		SUPER = sUPER.getName();
-		SELF = sELF.getName();
+	// LogUUID
+	public LogBase( Class<?> nameClass ) {
+		this.name = StackTraceUtil.getUpperOfPackage(nameClass.getPackage().getName()).getClassName();
+		SELF = nameClass.getPackage().getName();
 		logger = java.util.logging.Logger.getLogger(name);
 	}
 	
@@ -50,9 +35,11 @@ public class LogBase implements ILogger {
 //	}
 //	public void log(Level level, Throwable t , Object ... args) {
 //		log(level, null, t, args);
-//	}
+//	} java.util.logging.SimpleFormatter
     private boolean log(String self,Level level, String msg, Throwable t , Object ... args) {
     	if (logger.isLoggable(level)) {
+    		if( msg == null) msg = "";
+    		if( args == null ) args = new Object[0];
     		// millis and thread are filled by the constructor
     		LogRecord record = new LogRecord(level, String.format(msg, args));
     		record.setLoggerName( name );
@@ -66,33 +53,10 @@ public class LogBase implements ILogger {
     	return false;
     }
     private void fillCallerData(String callerFQCN, LogRecord record) {
-        StackTraceElement[] steArray = new Throwable().getStackTrace();
-
-        int selfIndex = -1;
-        for (int i = 0; i < steArray.length; i++) {
-            final String className = steArray[i].getClassName();
-            if (className.equals(callerFQCN) || className.equals(SUPER)) {
-                selfIndex = i;
-                break;
-            }
-        }
-
-        int found = -1;
-        for (int i = selfIndex + 1; i < steArray.length; i++) {
-            final String className = steArray[i].getClassName();
-            if (!(className.equals(callerFQCN) || className.equals(SUPER))) {
-                found = i;
-                break;
-            }
-        }
-
-        if (found != -1) {
-            StackTraceElement ste = steArray[found];
-            // setting the class name has the side effect of setting
-            // the needToInferCaller variable to false.
-            record.setSourceClassName(ste.getClassName());
-            record.setSourceMethodName(ste.getMethodName());
-        }
+    	StackTraceElement upper = StackTraceUtil.getUpperOfPackage(SELF);
+    	record.setSourceClassName(upper.getClassName());
+    	record.setSourceMethodName(upper.getMethodName());
+    	record.setSequenceNumber(upper.getLineNumber());
     }
 
     @Override
