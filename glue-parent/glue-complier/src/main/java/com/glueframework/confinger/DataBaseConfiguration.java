@@ -43,7 +43,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 
 
 	public DataBaseConfiguration( String groupId, String artifactId) {
-		this(Constant.ENVIRONMENT_VALUE,groupId,artifactId);
+		this(Constant.environment,groupId,artifactId);
 	}
 	
 
@@ -55,9 +55,15 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 				//  update  ...
 				QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
 				ConfigerHandle handle = getHandle(bean.getFlagClass());
-				String inner = handle.add(bean.getInner());
+				String 
+
+				
+				
+				
+				= handle.add(bean.getInner());
 				String createTime=bean.getCreateTime();
 				String updateTime="";
+				
 				String flagValue=bean.getFlagValue();
 				String version=bean.getVersion();
 				String flagClass=    bean.getFlagClass();//"com.glueframework.confinger.ConfigerHandle";
@@ -82,7 +88,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	}
 
 	@Override
-	protected void clearPropertyDirect(String key) {
+	protected void clearPropertyDirect(String key) { 
 		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
 		ConfigerBean bean = null;
 		try {
@@ -101,7 +107,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 
 	@Override
 	protected Iterator<String> getKeysInternal() {
-		// TODO 
+		
 		return null;
 	}
 
