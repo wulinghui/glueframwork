@@ -33,7 +33,7 @@ public class Slf4jDemo {
    	public void runLogUpLevelFactory(){   
        	LogUpLevelFactory factory = new LogUpLevelFactory();
        	ILogger newLogger = factory.newLogger();
-       	newLogger.trace("wode {}","wlh"); 
+       	newLogger.trace("wode %s","wlh"); 
        	// 提升等级
        	LogUpLevel.THREAD_LOCAL = new ThreadLocal<>();
        	LogUUID.THREAD_LOCAL = new ThreadLocal<>();
@@ -42,13 +42,13 @@ public class Slf4jDemo {
        	value.put(LogUUID.FLAG, LogUpLevel.WARN + "\tuuid\t");
    		LogUpLevel.THREAD_LOCAL.set(value );
    		LogUUID.THREAD_LOCAL.set(value); 
-       	newLogger.trace("wode {}","wlh");  
+       	newLogger.trace("wode %s","wlh");  
    	}
     @Test
    	public void runLogUpLevelFactoryByLogMSG(){   
     	ILogger newLogger = LogMSG.getLogger();
        	newLogger.debug(newLogger.getName()); 
-       	newLogger.trace("wode {}","wlh"); 
+       	newLogger.trace("wode %s","wlh"); 
        	// 提升等级
        	LogUpLevel.THREAD_LOCAL = new ThreadLocal<>();
        	LogUUID.THREAD_LOCAL = new ThreadLocal<>();
@@ -57,6 +57,6 @@ public class Slf4jDemo {
        	value.put(LogUUID.FLAG, LogUpLevel.WARN + "\tuuid\t");
    		LogUpLevel.THREAD_LOCAL.set(value );
    		LogUUID.THREAD_LOCAL.set(value); 
-       	newLogger.trace("wode {}","wlh");  
+       	newLogger.trace("wode %s","wlh");  
    	}
 }	

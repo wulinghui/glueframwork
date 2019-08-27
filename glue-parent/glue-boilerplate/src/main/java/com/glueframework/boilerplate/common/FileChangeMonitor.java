@@ -91,7 +91,7 @@ public abstract class FileChangeMonitor {
 	 * @param file
 	 */
 	protected  void doHandleDirectory(File file){
-		logger.debug("文件夹发生变化,不做处理={}" , file);
+		logger.debug("文件夹发生变化,不做处理=%s" , file);
 	}
 	/**处理文件的变化。   
 	 * 子类不满足，重写该方法。
@@ -99,6 +99,6 @@ public abstract class FileChangeMonitor {
 	 * @param fileName
 	 */
 	protected void doHandleFile(File file){
-		logger.debug("文件发生变化={}" , file);
+		logger.debug("文件发生变化=%s" , file);
 	}
 }

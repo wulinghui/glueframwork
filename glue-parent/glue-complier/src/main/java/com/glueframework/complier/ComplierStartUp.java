@@ -15,7 +15,7 @@ public class ComplierStartUp {
 		// 2次修改
 		CompilerChangeMonitor changeMonitor = null;
 		for (File directory : src) { 
-			logger.debug("directory=[{}]" , directory.getAbsolutePath());
+			logger.debug("directory=[%s]" , directory.getAbsolutePath());
 			changeMonitor = new CompilerChangeMonitor( directory );
 			changeMonitor.setJar(jar);   
 			changeMonitor.setTarget(target);

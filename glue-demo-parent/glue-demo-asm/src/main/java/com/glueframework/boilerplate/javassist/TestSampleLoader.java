@@ -20,7 +20,7 @@ public class TestSampleLoader {
 //         .invoke(null, new Object[] { args });
 		
         while (true) {   
-        	ClassLoader loader = new SampleLoader(){};
+        	ClassLoader loader = new SampleLoader()%s;
         	Thread.sleep(6000);  
         	String name = "com.glueframework.boilerplate.javassist.Hello";
             Class<?> clazz =  

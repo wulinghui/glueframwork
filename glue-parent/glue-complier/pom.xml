@@ -24,7 +24,10 @@
     <groupId>commons-dbutils</groupId>
     <artifactId>commons-dbutils</artifactId>
 </dependency>
-
+<dependency>
+				<groupId>org.apache.commons</groupId>
+				<artifactId>commons-text</artifactId>
+</dependency>
 <dependency>
     <groupId>commons-jxpath</groupId>
     <artifactId>commons-jxpath</artifactId>

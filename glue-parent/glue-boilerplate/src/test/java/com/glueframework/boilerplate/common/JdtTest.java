@@ -168,7 +168,7 @@ public class JdtTest {
         // Modify buffer and reconcile  //修改缓冲区和协调
 
         IBuffer buffer = ((IOpenable)workingCopy).getBuffer();
-        buffer.append("class X {}");
+        buffer.append("class X %s");
         workingCopy.reconcile(ICompilationUnit.NO_AST, false, null, null);
 
         /* 第2种方式修改。
@@ -313,8 +313,8 @@ public class JdtTest {
         // Get package  //获取软件包
         IPackageFragment pkg = null;
         // Create 2 compilation units  //创建2个编译单元
-        ICompilationUnit unitA = pkg.createCompilationUnit ("A.java", "public class A {}", false, null);
-        ICompilationUnit unitB = pkg.createCompilationUnit("B.java", "public class B {}", false, null);
+        ICompilationUnit unitA = pkg.createCompilationUnit ("A.java", "public class A %s", false, null);
+        ICompilationUnit unitB = pkg.createCompilationUnit("B.java", "public class B %s", false, null);
     }
 
 

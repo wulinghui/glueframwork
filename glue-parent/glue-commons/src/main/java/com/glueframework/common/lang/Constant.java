@@ -27,6 +27,7 @@ public abstract class Constant {
 		}
 	}
 	public final static String CLASS_LOAD_TMP_DIR_VALUE = SINGLE.getString(CLASS_LOAD_TMP_DIR_KEY, "class_load_tmp_dir");
+	
 	/**是否是开发环境。
 	 * @return
 	 */

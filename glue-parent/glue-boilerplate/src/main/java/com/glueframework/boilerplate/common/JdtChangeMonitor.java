@@ -31,7 +31,7 @@ public abstract class JdtChangeMonitor extends FileChangeMonitor {
 		// TODO 2次修改文件,采用策略模式,封装一个数组。
 		// 修改后的内容，怎么处理? 1. 替换 2.新文件保存 3. 内存保存
 		// 先采用‘内存保存’
-		super.logger.info("doHandleFile-path={}",file);
+		super.logger.info("doHandleFile-path=%s",file);
 		try {
 			  String srcInner =  FileUtils.readFileToString( file ,"UTF-8");
 			  // 交给编译器处理，编译。

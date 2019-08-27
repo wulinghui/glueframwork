@@ -44,7 +44,7 @@ public class CompilerChangeMonitor extends JdtChangeMonitor {
 				+ "."+ classType.getName().toString();
 		CompileTool tool = new CompileTool(className);
 		if( tool.compile( srcInner ) ){
-			this.logger.debug("user javac compile javaFile seccuess=[{}] ",file );
+			this.logger.debug("user javac compile javaFile seccuess=[%s] ",file );
 		}
 	}
 	 

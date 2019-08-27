@@ -59,7 +59,7 @@ public class CompileTool {
         //            File classPath = new File(Thread.currentThread().getContextClassLoader().getResource("").toURI());
 		//            outDir = classPath.getAbsolutePath() + File.separator;
 		outFile = new File(outDir,className.replace(".", File.separator)+".class");
-		logger.debug("classPath={} \n className=[{}] \n src=[{}]   \n file = [{}]  file-exists={}" , outDir , className , javaCodes  , outFile ,outFile.exists() );
+		logger.debug("classPath=%s \n className=[%s] \n src=[%s]   \n file = [%s]  file-exists=%s" , outDir , className , javaCodes  , outFile ,outFile.exists() );
         Iterable<String> options = Arrays.asList(flag, outDir);
         JavaCompiler.CompilationTask task = compiler.getTask(null, fileManager, null, options, null, fileObjects);
         return task.call();

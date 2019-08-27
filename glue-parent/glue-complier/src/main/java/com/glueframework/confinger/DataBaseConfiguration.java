@@ -1,6 +1,5 @@
 package com.glueframework.confinger;
 
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -11,7 +10,6 @@ import org.apache.commons.configuration2.AbstractConfiguration;
 import org.apache.commons.dbutils.QueryRunner;
 import org.apache.commons.dbutils.ResultSetHandler;
 import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.BeanListHandler;
 import org.apache.commons.lang3.ClassUtils;
 
 import com.glueframework.common.lang.Constant;
@@ -20,6 +18,10 @@ import com.glueframework.commons.DateTools;
 import com.glueframework.log.ILogger;
 import com.glueframework.log.LogMSG;
 
+/**
+ * @author Administrator
+ * 
+ */
 public class DataBaseConfiguration extends AbstractConfiguration {
 	private static ILogger logger = LogMSG.getLogger();
 	public final String environment ;//= Constant.environment;//SystemOneConfiguration.SINGLE.getString(DataBaseConfiguration.class);
@@ -27,40 +29,39 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	public final String groupId;
 	
 	public final String artifactId;
-	
+	public final QueryRunner queryRunner;
+
 	/**
 	 * @param environment
 	 * @param groupId
 	 * @param artifactId
+	 * @param queryRunner
 	 */
 	public DataBaseConfiguration(String environment, String groupId,
-			String artifactId) {
+			String artifactId, QueryRunner queryRunner) {
 		super();
 		this.environment = environment;
 		this.groupId = groupId;
 		this.artifactId = artifactId;
+		this.queryRunner = queryRunner;
 	}
 
-
-	public DataBaseConfiguration( String groupId, String artifactId) {
-		this(Constant.environment,groupId,artifactId);
+	public DataBaseConfiguration( String groupId, String artifactId ) {
+		this(groupId,artifactId, DBTools.getInstance().getQueryRunner() );
+	}
+	public DataBaseConfiguration( String groupId, String artifactId , QueryRunner queryRunner) {
+		this(Constant.ENVIRONMENT_VALUE,groupId,artifactId, queryRunner );
 	}
 	
 
 	@Override
 	public  void addPropertyDirect(String key, Object value) {
-		if( value instanceof ConfigerBean) {
-			ConfigerBean bean = (ConfigerBean) value;
+		if( value instanceof ConfigerBeanSuper) {
+			ConfigerBeanSuper bean = (ConfigerBeanSuper) value;
 			if( ! containsKeyInternal(key) ){
 				//  update  ...
-				QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
-				ConfigerHandle handle = getHandle(bean.getFlagClass());
-				String 
-
 				
-				
-				
-				= handle.add(bean.getInner());
+				String inner = handle.add(bean.getInner());
 				String createTime=bean.getCreateTime();
 				String updateTime="";
 				
@@ -88,7 +89,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	}
 
 	@Override
-	protected void clearPropertyDirect(String key) { 
+	protected void clearPropertyDirect(String key) {
 		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
 		ConfigerBean bean = null;
 		try {
@@ -133,7 +134,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 		QueryRunner queryRunner = DBTools.getInstance().getQueryRunner();
 		//TODO  select * from GLUE_CONFIGER where key ......
 		ConfigerBean bean = null;
-		String[] arraysStrings= {environment,groupId,artifactId}; 
+		String[] arraysStrings= {key,environment,groupId,artifactId}; 
 		ResultSetHandler<ConfigerBean> hand=new BeanHandler<ConfigerBean>(ConfigerBean.class);
 		try {
 			bean=queryRunner.query("select * from GLUE_CONFIGER where _key=? and "

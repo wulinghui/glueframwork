@@ -84,7 +84,7 @@ public class TestJdCore {
 	    @Override public void endLine() { sb.append(NEWLINE); }
 	    @Override public void extraLine(int count) { while (count-- > 0) sb.append(NEWLINE); }
 
-	    @Override public void startMarker(int type) {}
+	    @Override public void startMarker(int type){}
 	    @Override public void endMarker(int type) {}
 	};
 	public static void main(String[] args) throws Exception {

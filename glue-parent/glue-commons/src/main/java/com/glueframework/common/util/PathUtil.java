@@ -4,7 +4,7 @@ import java.io.File;
 import java.io.IOException;
 
 public class PathUtil {
-	public static String getClassPath(Class<?> c) {
+	public static String getClassPath() {
 		return Thread.currentThread().getContextClassLoader().getResource("").getFile();//	/E:/workSpace/Util5/bin/test/
 	}
 	public static String getWorkPath() throws IOException {

@@ -1,5 +1,11 @@
 package com.glueframework.confinger;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import com.glueframework.common.lang.Constant;
+import com.glueframework.commons.DBTools;
+
 /**
  * @author Administrator
  * 1. 数据库可以轻松实现分布式   url name pass
@@ -11,23 +17,70 @@ package com.glueframework.confinger;
  * 6. 利用sql批量修改容易。
  */
 public class ConfigerBeanSuper {
-	String _version;
-	Object  _inner;
-	
-	public Object getInner() {
-		return _inner;
+	public final String PREFIX = "glue_confige_";
+	// 主键
+	String _key_; 
+	String _environment_;
+	String _groupId_;
+	String _artifactId_;
+	// 
+	String _version_;
+	String update_Time = "";
+	private static final List<Class> tmp = new ArrayList<Class>();
+	{
+		Class<? extends ConfigerBeanSuper> class1 = this.getClass();
+		if( !tmp.contains(class1)){
+			DBTools instance = DBTools.getInstance();
+			if( Constant.isDevEnvironment()) {
+				instance.drop(getTableName());
+				instance.drop(getTableHistoryName());
+			}
+			instance.createTable(class1 , getTableName());
+			instance.createTable(class1 , getTableHistoryName());
+			tmp.add(class1);
+		}
 	}
 
-	public void setInner(Object inner) {
-		this._inner = inner;
+	public String get_key_() {
+		return _key_;
 	}
-
-	public String getVersion() {
-		return _version;
+	public void set_key_(String _key_) {
+		this._key_ = _key_;
 	}
-
-	public void setVersion(String version) {
-		this._version = version;
+	public String get_environment_() {
+		return _environment_;
 	}
-	
+	public void set_environment_(String _environment_) {
+		this._environment_ = _environment_;
+	}
+	public String get_groupId_() {
+		return _groupId_;
+	}
+	public void set_groupId_(String _groupId_) {
+		this._groupId_ = _groupId_;
+	}
+	public String get_artifactId_() {
+		return _artifactId_;
+	}
+	public void set_artifactId_(String _artifactId_) {
+		this._artifactId_ = _artifactId_;
+	}
+	public String get_version_() {
+		return _version_;
+	}
+	public void set_version_(String _version_) {
+		this._version_ = _version_;
+	}
+	public String getUpdate_Time() {
+		return update_Time;
+	}
+	public void setUpdate_Time(String update_Time) {
+		this.update_Time = update_Time;
+	}
+	public final String getTableName(){
+		return PREFIX+this.getClass().getSimpleName();
+	}
+	public final String getTableHistoryName(){
+		return getTableName()+"_History";
+	}
 }
