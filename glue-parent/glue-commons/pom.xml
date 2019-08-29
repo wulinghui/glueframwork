@@ -23,6 +23,15 @@
     <groupId>commons-beanutils</groupId>
     <artifactId>commons-beanutils</artifactId>
 </dependency>
+
+
+<dependency>
+    <groupId>com.alibaba</groupId>
+    <artifactId>fastjson</artifactId>
+</dependency>
+  
+
+ 
   </dependencies>
 </project>
 

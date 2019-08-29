@@ -1,10 +1,13 @@
 package com.glueframework.confinger;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import com.glueframework.common.lang.Constant;
+import com.glueframework.common.tools.JsonTools;
 import com.glueframework.commons.DBTools;
+import com.glueframework.commons.DateTools;
 
 /**
  * @author Administrator
@@ -23,20 +26,23 @@ public class ConfigerBeanSuper {
 	String _environment_;
 	String _groupId_;
 	String _artifactId_;
-	// 
+	//  内容
+	String _value_; 
+	// 版本
 	String _version_;
-	String update_Time = "";
+	String create_Time;
+	String update_Time = DateTools.date2Str(new Date(),DateTools.DATE_FORMAT_MSEC);
 	private static final List<Class> tmp = new ArrayList<Class>();
 	{
 		Class<? extends ConfigerBeanSuper> class1 = this.getClass();
 		if( !tmp.contains(class1)){
 			DBTools instance = DBTools.getInstance();
 			if( Constant.isDevEnvironment()) {
-				instance.drop(getTableName());
-				instance.drop(getTableHistoryName());
+				instance.drop(tableName());
+				instance.drop(tableHistoryName());
 			}
-			instance.createTable(class1 , getTableName());
-			instance.createTable(class1 , getTableHistoryName());
+			instance.createTable(class1 , tableName());
+			instance.createTable(class1 , tableHistoryName());
 			tmp.add(class1);
 		}
 	}
@@ -77,10 +83,26 @@ public class ConfigerBeanSuper {
 	public void setUpdate_Time(String update_Time) {
 		this.update_Time = update_Time;
 	}
-	public final String getTableName(){
+	public final String tableName(){
 		return PREFIX+this.getClass().getSimpleName();
 	}
-	public final String getTableHistoryName(){
-		return getTableName()+"_History";
+	public final String tableHistoryName(){
+		return tableName()+"_History";
+	}
+	public String getCreate_Time() {
+		return create_Time;
+	}
+	public void setCreate_Time(String create_Time) {
+		this.create_Time = create_Time;
+	}
+	public String get_value_() {
+		return _value_;
+	}
+	public void set_value_(String _value_) {
+		this._value_ = _value_;
+	}
+	@Override
+	public String toString() {
+		return JsonTools.bean2Json(this);
 	}
 }

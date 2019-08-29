@@ -99,7 +99,7 @@ public class DateTools {
 	     * @return
 	     * @throws ParseException
 	     */
-	    public static String date2Str(Date date,String pattern) throws Exception {
+	    public static String date2Str(Date date,String pattern)  {
 	        SimpleDateFormat sdf = null;
 	        if ((DATE_FORMAT_DAY.equals(pattern))) {
 	            sdf = new SimpleDateFormat(DATE_FORMAT_DAY);
@@ -128,9 +128,7 @@ public class DateTools {
 	        if (null != sdf) {
 	            return sdf.format(date);
 	        }
-	        throw new Exception(
-	                String.format("[%s] can not matching right time format", date));
-
+	        return null;
 	    }
 	    /**
 	     * long转换成date
@@ -186,12 +184,12 @@ public class DateTools {
 	        String str2="2018/6/29";
 	        String str3="2018-06-29 14:12:28";
 
-	       // System.out.println(long2Date(str1));//Wed Jun 06 10:28:15 CST 2018
+	        System.out.println(long2Date(str1));//Wed Jun 06 10:28:15 CST 2018
 	        System.out.println(str2Date(str2));//Fri Jun 29 00:00:00 CST 2018
-	      //  System.out.println(str2Date(str3));//Fri Jun 29 14:12:28 CST 2018
-	      //  System.out.println(date2Str(new Date(),DATE_FORMAT_MSEC));//2018-10-24 10:21:14.189
-	     //   System.out.println(compareDate(long2Date(str1),str2Date(str2)));//-1
-	      //  System.out.println(getDateTimes(new Date()));//1540347818396
+	        System.out.println(str2Date(str3));//Fri Jun 29 14:12:28 CST 2018
+	        System.out.println(date2Str(new Date(),DATE_FORMAT_MSEC));//2018-10-24 10:21:14.189
+	        System.out.println(compareDate(long2Date(str1),str2Date(str2)));//-1
+	        System.out.println(getDateTimes(new Date()));//1540347818396
 
 	    }
 	// String2Date。

@@ -3,6 +3,8 @@ package com.glueframework.boilerplate.common;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.eclipse.jdt.core.dom.AST;
+import org.eclipse.jdt.core.dom.ASTNode;
 import org.eclipse.jdt.core.dom.AbstractTypeDeclaration;
 import org.eclipse.jdt.core.dom.AnnotationTypeMemberDeclaration;
 import org.eclipse.jdt.core.dom.CompilationUnit;
@@ -13,14 +15,19 @@ import org.eclipse.jdt.core.dom.Initializer;
 import org.eclipse.jdt.core.dom.MethodDeclaration;
 import org.eclipse.jdt.core.dom.TypeDeclaration;
 
+import com.glueframework.log.ILogger;
+import com.glueframework.log.LogMSG;
+
 public abstract class CompilationUnitTools {
-	final CompilationUnit createCompilationUnit;
+	protected static ILogger logger = LogMSG.getLogger();
+	
+	CompilationUnit createCompilationUnit;
 	final int indexClass;
-	private final List<AnnotationTypeMemberDeclaration> annotationList = new ArrayList<>();
-	private final List<EnumConstantDeclaration> enumConstantList = new ArrayList<>();
-	private final List<FieldDeclaration> fieldDeclarationList = new ArrayList<>();
-	private final List<Initializer> initializerList = new ArrayList<>();
-	private final List<MethodDeclaration> methodDeclarationList = new ArrayList<>();
+	private  List<AnnotationTypeMemberDeclaration> annotationList ;
+	private  List<EnumConstantDeclaration> enumConstantList;
+	private  List<FieldDeclaration> fieldDeclarationList ;
+	private  List<Initializer> initializerList;
+	private  List<MethodDeclaration> methodDeclarationList;
 	/**
 	 * @param createCompilationUnit
 	 * @param indexClass
@@ -33,6 +40,11 @@ public abstract class CompilationUnitTools {
 		init();
 	}
 	protected void init(){
+		annotationList = new ArrayList<>();
+		enumConstantList = new ArrayList<>();
+		fieldDeclarationList = new ArrayList<>();
+		initializerList = new ArrayList<>();
+		methodDeclarationList = new ArrayList<>();
 		for (Object object : getTypeDeclaration().bodyDeclarations()) {
 			if(object instanceof FieldDeclaration){
 				fieldDeclarationList.add((FieldDeclaration) object);
@@ -106,5 +118,20 @@ public abstract class CompilationUnitTools {
 		return classType;
 	}
 
+	public void replacemethod(String oldInner,String methodInner) {
+		replaceCompilationUnit(oldInner.replace("  ", "    ").replace("}", "  }") , methodInner );
+	}
+	public void replaceCompilationUnit(String oldInner,String methodInner) {
+		// 获得方法内部的代码。
+		String string = oldInner;
+		//oldInner.replace("  ", "    ");
+//		string = string.replace("}", "  }");
+		ASTNode root = createCompilationUnit.getRoot();
+		String replace = root.toString().replace(string, methodInner);
+		logger.trace("root=[%s],body=[%s],replace=[%s]" , root , string , replace);
+		createCompilationUnit = IJdtConvert.DEFAULT
+				.createCompilationUnit(replace);
+		init();
+	}
 
 }
