@@ -33,18 +33,23 @@ public class ConfigerBeanSuper {
 	String create_Time;
 	String update_Time = DateTools.date2Str(new Date(),DateTools.DATE_FORMAT_MSEC);
 	private static final List<Class> tmp = new ArrayList<Class>();
-	{
+	public ConfigerBeanSuper(){
 		Class<? extends ConfigerBeanSuper> class1 = this.getClass();
 		if( !tmp.contains(class1)){
-			DBTools instance = DBTools.getInstance();
-			if( Constant.isDevEnvironment()) {
-				instance.drop(tableName());
-				instance.drop(tableHistoryName());
-			}
-			instance.createTable(class1 , tableName());
-			instance.createTable(class1 , tableHistoryName());
+			init();
 			tmp.add(class1);
 		}
+	}
+
+	protected void init() {
+		Class<? extends ConfigerBeanSuper> class1 = this.getClass();
+		DBTools instance = DBTools.getInstance();
+		if( Constant.isDevEnvironment()) {
+			instance.drop(tableName());
+			instance.drop(tableHistoryName());
+		}
+		instance.createTable(class1 , tableName());
+		instance.createTable(class1 , tableHistoryName());
 	}
 
 	public String get_key_() {

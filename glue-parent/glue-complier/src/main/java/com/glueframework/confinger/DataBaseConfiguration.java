@@ -1,24 +1,20 @@
 package com.glueframework.confinger;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
+import java.util.ServiceLoader;
 
 import org.apache.commons.collections.ListUtils;
 import org.apache.commons.configuration2.AbstractConfiguration;
 import org.apache.commons.configuration2.convert.ConversionHandler;
-import org.apache.commons.configuration2.interpol.ConfigurationInterpolator;
 import org.apache.commons.dbutils.QueryRunner;
-import org.apache.commons.dbutils.handlers.BeanHandler;
-import org.apache.commons.dbutils.handlers.ColumnListHandler;
-import org.apache.commons.dbutils.handlers.ScalarHandler;
 import org.apache.commons.lang3.ObjectUtils;
 
 import com.glueframework.common.lang.ArrayUtils;
 import com.glueframework.common.lang.Constant;
 import com.glueframework.common.lang.ConstructorUtils;
+import com.glueframework.common.lang.SystemOneConfiguration;
 import com.glueframework.commons.DBTools;
 import com.glueframework.log.ILogger;
 import com.glueframework.log.LogMSG;
@@ -42,6 +38,17 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	public final QueryRunner queryRunner;
 	public final Class< ? extends ConfigerBeanSuper> type;
 	
+	// 初始化系统类
+	static{
+		ServiceLoader<InitSystemConfiger> operations = ServiceLoader.load(InitSystemConfiger.class);
+        Iterator<InitSystemConfiger> operationIterator = operations.iterator();
+        InitSystemConfiger operation = null;
+		while (operationIterator.hasNext()) {
+			operation = operationIterator.next();
+			operation.registerInitConfiger();
+        }
+	}
+	
 	public DataBaseConfiguration( String groupId, String artifactId ) {
 		this(groupId,artifactId, dbTool.getQueryRunner()  , ConfigerBeanSuper.class);
 	}
@@ -64,46 +71,7 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 		this.queryRunner = queryRunner;
 		this.type = type;
 		final ConversionHandler conversionHandler = super.getConversionHandler();
-		this.setConversionHandler(new ConversionHandler() {
-			
-			@Override
-			public <T> void toCollection(Object src, Class<T> elemClass,
-					ConfigurationInterpolator ci, Collection<T> dest) {
-				try {
-					conversionHandler.toCollection(src, elemClass, ci, dest);
-				} catch (Exception e) {
-					ConfigerBeanSuper bean =  (ConfigerBeanSuper) src;
-					conversionHandler.toCollection(bean.get_value_(), elemClass, ci, dest);
-				}
-			}
-			
-			@Override
-			public Object toArray(Object src, Class<?> elemClass,
-					ConfigurationInterpolator ci) {
-				Object array = null;
-				try {
-					array = conversionHandler.toArray(src, elemClass, ci);
-				} catch (Exception e) {
-					ConfigerBeanSuper bean = (ConfigerBeanSuper) src;
-					array = conversionHandler.toArray(bean.get_value_(),
-							elemClass, ci);
-				}
-				return array;
-			}
-			
-			@Override
-			public <T> T to(Object src, Class<T> targetCls, ConfigurationInterpolator ci) {
-				T array = null;
-				try {
-					array = conversionHandler.to(src,targetCls, ci);
-				} catch (Exception e) {
-					ConfigerBeanSuper bean = (ConfigerBeanSuper) src;
-					array = conversionHandler.to(bean.get_value_(),targetCls,
-							 ci);
-				}
-				return array;
-			}
-		});
+		this.setConversionHandler(new ConversionBeanHandler(conversionHandler) );
 	}
 	public DataBaseConfiguration( String groupId, String artifactId , QueryRunner queryRunner , Class< ? extends ConfigerBeanSuper> type) {
 		this(Constant.ENVIRONMENT_VALUE,groupId,artifactId, queryRunner , type);
@@ -218,5 +186,5 @@ public class DataBaseConfiguration extends AbstractConfiguration {
 	public static void main(String[] args) {
 //		ArrayUtils.reverse(WHERE_ARGS, 1, WHERE_ARGS.length);
 //		System.out.println(subarray.length); 
-	}  
+	}
 }

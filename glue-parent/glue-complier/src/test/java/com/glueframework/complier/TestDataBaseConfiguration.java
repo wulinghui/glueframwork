@@ -6,8 +6,11 @@ import java.beans.PropertyDescriptor;
 import java.lang.reflect.InvocationTargetException;
 import java.sql.SQLException;
 
+import org.apache.commons.configuration2.AbstractConfiguration;
 import org.junit.Test;
 
+import com.glueframework.common.lang.CombinedConfiguration;
+import com.glueframework.common.lang.SystemOneConfiguration;
 import com.glueframework.common.util.PropertyUtils;
 import com.glueframework.commons.DBTools;
 import com.glueframework.confinger.ConfigerBeanSuper;
@@ -17,7 +20,7 @@ import com.glueframework.log.LogMSG;
 
 public class TestDataBaseConfiguration {
 	private static ILogger logger = LogMSG.getLogger();
-	DataBaseConfiguration configuration =
+	AbstractConfiguration configuration =
 			new DataBaseConfiguration("com.glueframework","complier");
 	ConfigerBeanSuper bean = new ConfigerBeanSuper();
 	@Test
@@ -33,12 +36,16 @@ public class TestDataBaseConfiguration {
 		System.out.println( configuration.get(ConfigerBeanSuper.class, key)  );
 		configerBeanSuper = DBTools.getInstance().getBeanByIntrospector(configerBeanSuper.tableHistoryName(), DataBaseConfiguration.WHERE_ARGS, configerBeanSuper, bean.getClass());
 		System.out.println( configerBeanSuper );
+		
+		
 	}
 
 	@Test
-	public void testClearPropertyDirectString() {
-		fail("Not yet implemented");
-	}
+	public void testClearPropertyDirectString() throws SQLException {
+		configuration = new CombinedConfiguration(configuration , SystemOneConfiguration.SINGLE);
+		testAddPropertyDirectStringObject();
+		System.out.println( "testClearPropertyDirectString" );
+	}  
 
 	@Test
 	public void testGetKeysInternal() {
