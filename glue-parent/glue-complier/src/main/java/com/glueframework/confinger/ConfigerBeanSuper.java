@@ -27,7 +27,7 @@ public class ConfigerBeanSuper {
 	String _groupId_;
 	String _artifactId_;
 	//  内容
-	String _value_; 
+	String _value_;
 	// 版本
 	String _version_;
 	String create_Time;

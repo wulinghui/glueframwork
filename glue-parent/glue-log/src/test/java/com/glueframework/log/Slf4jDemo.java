@@ -13,6 +13,16 @@ import org.slf4j.LoggerFactory;
  *
  */
 public class Slf4jDemo {
+	public static void main(String[] args) {
+		while(true){
+			try {
+				Thread.sleep(1000);
+				System.out.println(11111);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 	private static Logger log = LoggerFactory.getLogger(Slf4jDemo.class);
 /*    public static void main() {
     	System.out.println(THREAD_LOCAL1 == THREAD_LOCAL);
