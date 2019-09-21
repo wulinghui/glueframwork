@@ -1,6 +1,7 @@
 package com.glueframework.commons;
 
 import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,6 +11,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.zip.ZipEntry;
+import java.util.zip.ZipInputStream;
 import java.util.zip.ZipOutputStream;
 
 import org.apache.commons.compress.archivers.ArchiveEntry;
@@ -18,6 +21,8 @@ import org.apache.commons.compress.archivers.zip.ZipArchiveEntry;
 import org.apache.commons.compress.archivers.zip.ZipArchiveInputStream;
 import org.apache.commons.compress.archivers.zip.ZipArchiveOutputStream;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.IOUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.time.DateFormatUtils;
 
 import com.glueframework.log.ILogger;
@@ -25,7 +30,7 @@ import com.glueframework.log.LogMSG;
 
 public class ZipTool {
 	protected static ILogger log = LogMSG.getLogger();
-
+	public static int BUFFER_SIZE = 2048;
     public static void compressFile(File targetFile, File sourceFile) {
       ZipOutputStream zipOutput = null;
          try {
@@ -70,6 +75,68 @@ public class ZipTool {
             bis.close();
         }
         }
+    public static List<String> unZip(File zipfile, String destDir)
+            throws Exception {
+        if (StringUtils.isBlank(destDir)) {
+            destDir = zipfile.getParent();
+        }
+        destDir = destDir.endsWith(File.separator) ? destDir : destDir
+                + File.separator;
+        ZipArchiveInputStream is = null;
+        List<String> fileNames = new ArrayList<String>();
+
+        try {
+            is = new ZipArchiveInputStream(new BufferedInputStream(
+                    new FileInputStream(zipfile), BUFFER_SIZE));
+            ZipArchiveEntry entry = null;
+            while ((entry = is.getNextZipEntry()) != null) {
+            	System.out.println(entry.getName());
+                fileNames.add(entry.getName());
+                if (entry.isDirectory()) {
+                    File directory = new File(destDir, entry.getName());
+                    directory.mkdirs();
+                } else {
+                    OutputStream os = null;
+                    try {
+                        os = new BufferedOutputStream(new FileOutputStream(
+                                new File(destDir, entry.getName())),
+                                BUFFER_SIZE);
+                        IOUtils.copy(is, os);
+                    } finally {
+                        IOUtils.closeQuietly(os);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw e;
+        } finally {
+            IOUtils.closeQuietly(is);
+        }
+
+        return fileNames;
+    }
+    public static void decompress(ZipInputStream srcFile,File desFile,String name) {
+    	try {
+			ZipEntry entry=srcFile.getNextEntry();
+			String entryName=entry.getName();
+			if(entryName.substring(entryName.length()-1, entryName.length()).equals("/")){
+				File file =new File(name);
+				if(!file.exists()) {
+					file.mkdir();
+				}
+			}
+			else {
+				File file =new File(name);
+				if(!file.exists()) {
+					file.createNewFile();
+				}	
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    }
 	 public static boolean decompressZip2Files(String zipFilePath, String targetDirPath) {
 
 	        InputStream inputStream = null;
@@ -85,21 +152,30 @@ public class ZipTool {
 	            while (null != (archiveEntry = zipArchiveInputStream.getNextEntry())) {
 	                //获取文件名
 	                String archiveEntryFileName = archiveEntry.getName();
+	             
 	                //构造解压后文件的存放路径
-	                String archiveEntryPath = targetDirPath + archiveEntryFileName;
+	                String archiveEntryPath = targetDirPath + archiveEntryFileName.substring(0, archiveEntryFileName.length()-1);
 	                //把解压出来的文件写到指定路径
+	                System.out.println(archiveEntryPath);
 	                File entryFile = new File(archiveEntryPath);
-	                if (!entryFile.exists()) {
-	                    boolean mkdirs = entryFile.getParentFile().mkdirs();
-
+	                if(!entryFile.isDirectory()) {
+	                	 if (!entryFile.exists()) {
+	 	                    boolean mkdirs = entryFile.createNewFile();
+	                             System.out.println(entryFile.getName()+"创建文件"+mkdirs);
+	 	                }
+	 	                byte[] buffer = new byte[1024 * 5];
+	 	                outputStream = new FileOutputStream(entryFile);
+	 	                int len = -1;
+	 	                while ((len = zipArchiveInputStream.read(buffer)) != -1) {
+	 	                    outputStream.write(buffer, 0, len);
+	 	                }
+	 	               outputStream.flush();
 	                }
-	                byte[] buffer = new byte[1024 * 5];
-	                outputStream = new FileOutputStream(entryFile);
-	                int len = -1;
-	                while ((len = zipArchiveInputStream.read(buffer)) != -1) {
-	                    outputStream.write(buffer, 0, len);
-	                }
-	                outputStream.flush();
+	                else {
+	                	entryFile.mkdir();
+					}
+	               
+	               
 	            }
 	        } catch (IOException e) {
 	            e.printStackTrace();
@@ -123,6 +199,9 @@ public class ZipTool {
 	    }
 
 	    /**
+	     * 
+	     * 
+	     * 
 	     *  创建临时文件
 	     */
 	    public static File createTempFile(String fullFileName) throws IOException {
@@ -132,6 +211,9 @@ public class ZipTool {
 	        boolean newFile = file.createNewFile();
 	        log.debug("newFile {} => {}", fullFileName, newFile);
 	        return file;
+	        
+	        
+	        
 	    }
 	public static void main(String[] args) throws Exception {
 		 File f1 = new File("C:\\Users\\Administrator\\Desktop\\新建文件夹");

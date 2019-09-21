@@ -66,11 +66,16 @@ public class Test {
 	    }     
 	         
 	   public static void main(String[] args) throws Exception {
-		   //加密     
-		   Test test=new Test();
-	   	      test.encryptZip("d:\\test\\111.jpg", "d:\\test\\photo.zip", "12345");     
-		        //解密      
-		        test.decryptUnzip("d:\\test\\photo.zip", "d:\\test\\111_1.jpg", "12345");     
+		        File f1 = new File("C:\\Users\\Administrator\\Desktop\\encode.zip");
+		        File f2 = new File("C:\\Users\\Administrator\\Desktop\\log");
+		        System.out.println(File.separator);
+		       // f1.mkdir();
+		       ZipTool.unZip(f1, "C:\\Users\\Administrator\\Desktop");
+		       //System.out.println(f1.isDirectory());
+		      //  f2.getParentFile().mkdirs();
+		       // ZipTool.compressFile(f1, f2);
+		     //  ZipTool.decompressZip2Files("C:\\Users\\Administrator\\Desktop\\encode.zip", "C:/Users/Administrator/Desktop/");
+		        
 	} 
 	   
 }
